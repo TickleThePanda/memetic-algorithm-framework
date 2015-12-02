@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fileset-config file-format-version="1.2.0" simple-config="false" sync-formatter="true">
+  <fileset name="all" enabled="true" check-config-name="Google Checks 1" local="false">
+    <file-match-pattern match-pattern="." include-pattern="true"/>
+    <file-match-pattern match-pattern=".*View.java|.*Component.java|.*Dialog.java" include-pattern="false"/>
+    <file-match-pattern match-pattern="bin/.*" include-pattern="false"/>
+    <file-match-pattern match-pattern=".*Test.java" include-pattern="false"/>
+    <file-match-pattern match-pattern=".*Tests.java" include-pattern="false"/>
+    <file-match-pattern match-pattern="lib/.*" include-pattern="false"/>
+    <file-match-pattern match-pattern="junit/.*" include-pattern="false"/>
+    <file-match-pattern match-pattern="[.]settings.*" include-pattern="false"/>
+    <file-match-pattern match-pattern="[.]checkstyle" include-pattern="false"/>
+    <file-match-pattern match-pattern="[.]classpath" include-pattern="false"/>
+    <file-match-pattern match-pattern="[.]project" include-pattern="false"/>
+    <file-match-pattern match-pattern=".txt" include-pattern="false"/>
+    <file-match-pattern match-pattern=".*.launch" include-pattern="false"/>
+    <file-match-pattern match-pattern=".*.csv" include-pattern="false"/>
+    <file-match-pattern match-pattern=".*.Driver" include-pattern="false"/>
+  </fileset>
+  <filter name="FilesFromPackage" enabled="false">
+    <filter-data value="src/uk/ac/rhul/cs/thomas_attwood/genetic_algorithm/gui/view"/>
+    <filter-data value="test"/>
+  </filter>
+</fileset-config>
