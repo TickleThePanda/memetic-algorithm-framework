@@ -1,15 +1,15 @@
 # memetic-algorithm-framework
 A memetic (and genetic) algorithm framework.
 
-# Features
+## Features
  - Default configuration for memetic algorithm
    - TSP
      - [TODO]
    - Pseudo-Boolean Functions
      - [TODO]
 
-# Requirements
+## Requirements
  - [TODO]
 
-# Implementing solutions to additional problems
+## Implementing solutions to additional problems
  - [TODO]
