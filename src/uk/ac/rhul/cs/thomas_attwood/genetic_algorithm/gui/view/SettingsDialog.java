@@ -20,8 +20,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.AlgorithmType;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.ProblemType;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.ProblemType;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.helpers.AlgorithmType;
 
 import com.google.common.primitives.Longs;
 

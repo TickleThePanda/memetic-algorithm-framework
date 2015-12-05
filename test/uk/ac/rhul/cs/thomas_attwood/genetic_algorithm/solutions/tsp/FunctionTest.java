@@ -6,6 +6,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.tsp.Cities;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.tsp.City;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.tsp.Tour;
+
 public class FunctionTest {
 
   @BeforeClass

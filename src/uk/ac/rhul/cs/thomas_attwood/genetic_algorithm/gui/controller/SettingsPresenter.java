@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.SwingUtilities;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.EvoAlgorithmSettings;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.model.SimulationPresenterBuilder;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.algorithms.EvoAlgorithmSettings;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.helpers.SimulationPresenterBuilder;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.view.SettingsDialog;
 
 /**

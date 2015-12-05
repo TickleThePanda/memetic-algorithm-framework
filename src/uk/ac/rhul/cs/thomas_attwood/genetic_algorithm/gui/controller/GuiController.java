@@ -13,7 +13,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.model.SimulationPresenterBuilder;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.helpers.SimulationPresenterBuilder;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.view.GUIView;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.view.SimulationView;
 

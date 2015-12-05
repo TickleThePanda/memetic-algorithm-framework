@@ -5,8 +5,8 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.model.GenerationData;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Solution;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.helpers.GenerationData;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.Solution;
 
 public class SimulationView<E extends Solution<E>> extends JPanel {
 

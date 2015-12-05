@@ -7,6 +7,11 @@ import java.util.Random;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.BitString;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PseudoBooleanTerm;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PsuedoBooleanFunction;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PsuedoBooleanIndeterminant;
+
 public class PbFitFuncOperatorTest {
 
   @BeforeClass

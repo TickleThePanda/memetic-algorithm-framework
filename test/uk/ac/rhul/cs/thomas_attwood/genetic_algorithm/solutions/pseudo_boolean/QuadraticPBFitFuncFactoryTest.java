@@ -9,8 +9,11 @@ import java.util.Random;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.pbf.PbFunctionGenerator;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.pbf.QuadraticPbFunctionGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.generators.pbf.PbFunctionGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.generators.pbf.QuadraticPbFunctionGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PseudoBooleanTerm;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PsuedoBooleanFunction;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PsuedoBooleanIndeterminant;
 
 public class QuadraticPBFitFuncFactoryTest {
 

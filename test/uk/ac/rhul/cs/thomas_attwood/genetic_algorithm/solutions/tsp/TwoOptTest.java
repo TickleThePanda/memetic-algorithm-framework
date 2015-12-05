@@ -10,8 +10,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.tsp.EuclidianCitiesGenerator;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.LocalImprovement;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.generators.tsp.EuclidianCitiesGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.LocalImprovement;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.tsp.Cities;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.tsp.City;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.tsp.Tour;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.tsp.TwoOptLocalImprovement;
 
 public class TwoOptTest {
 

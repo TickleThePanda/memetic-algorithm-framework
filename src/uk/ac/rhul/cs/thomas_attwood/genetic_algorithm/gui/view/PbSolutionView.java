@@ -11,10 +11,10 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.PsuedoBooleanFunction;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.pbf.QuadraticPbFunctionGenerator;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.BitString;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.BitStringFactory;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.generators.pbf.QuadraticPbFunctionGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.BitString;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.BitStringFactory;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PsuedoBooleanFunction;
 
 public class PbSolutionView extends SolutionView<BitString> {
 

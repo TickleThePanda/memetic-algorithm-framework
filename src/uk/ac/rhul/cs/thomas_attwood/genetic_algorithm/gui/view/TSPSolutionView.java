@@ -9,9 +9,9 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.Cities;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.City;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.Tour;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.tsp.Cities;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.tsp.City;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.tsp.Tour;
 
 public class TSPSolutionView extends SolutionView<Tour> {
 	/**

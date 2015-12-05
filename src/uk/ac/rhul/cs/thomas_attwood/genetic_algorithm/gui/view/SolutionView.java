@@ -2,7 +2,7 @@ package uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.view;
 
 import javax.swing.JPanel;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Solution;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.Solution;
 
 public abstract class SolutionView<E extends Solution<E>> extends JPanel {
 

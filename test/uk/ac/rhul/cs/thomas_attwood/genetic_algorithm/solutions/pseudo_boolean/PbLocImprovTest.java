@@ -6,7 +6,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.LocalImprovement;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.LocalImprovement;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.BitString;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.FlipBitLocalImprovement;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PseudoBooleanTerm;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PsuedoBooleanFunction;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PsuedoBooleanIndeterminant;
 
 public class PbLocImprovTest {
 

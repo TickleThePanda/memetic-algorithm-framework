@@ -2,15 +2,15 @@ package uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.controller;
 
 import javax.swing.SwingUtilities;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.Algorithm;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.AlgorithmType;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.ProblemType;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.model.GenerationData;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.model.GenerationListener;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.model.SimulationModel;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.algorithms.Algorithm;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.ProblemType;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.helpers.AlgorithmType;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.helpers.GenerationData;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.helpers.GenerationListener;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.helpers.SimulationModel;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.view.SimulationView;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.view.SolutionView;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Solution;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.Solution;
 
 /**
  * Presents the progress of the algorithm that is currently running.
@@ -53,12 +53,6 @@ public class SimulationPresenter<E extends Solution<E>> {
       final SolutionView<E> solutionView) {
 
     this.view = new SimulationView<E>(solutionView);
-
-    AlgorithmType at = algorithm.getAlgorithmType();
-    ProblemType pt = algorithm.getProblemType();
-    int problemSize = algorithm.getFitnessFunction().size();
-    this.view.setTitle(at.toString() + " - " + pt.toString() + " - "
-        + problemSize);
 
     model = new SimulationModel<E>(algorithm);
 

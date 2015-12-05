@@ -8,6 +8,8 @@ import java.util.Random;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PsuedoBooleanIndeterminant;
+
 public class BooleanOperationTest {
 
   @BeforeClass

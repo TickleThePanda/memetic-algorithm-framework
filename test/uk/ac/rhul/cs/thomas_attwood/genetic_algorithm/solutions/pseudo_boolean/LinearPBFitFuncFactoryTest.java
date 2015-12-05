@@ -7,7 +7,9 @@ import java.util.Random;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.pbf.LinearPbFunctionGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.generators.pbf.LinearPbFunctionGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PseudoBooleanTerm;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.PsuedoBooleanFunction;
 
 public class LinearPBFitFuncFactoryTest {
 

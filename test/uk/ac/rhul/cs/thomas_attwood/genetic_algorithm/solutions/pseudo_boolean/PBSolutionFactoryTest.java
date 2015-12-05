@@ -8,9 +8,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.pbf.QuadraticPbFunctionGenerator;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Problem;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Solution.Generator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.Problem;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.generators.pbf.QuadraticPbFunctionGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.Solution.Generator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.BitString;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.problem.solutions.pbf.BitStringFactory;
 
 public class PBSolutionFactoryTest {
 
