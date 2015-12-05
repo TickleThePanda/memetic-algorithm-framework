@@ -18,41 +18,41 @@ public class PbFitFuncOperatorTest {
 
   @Test
   public void TestDoOperation_BaseCase_GetCorrectValue() {
-    final Term term =
-        new Term(1, new BooleanIndeterminant[] { new BooleanIndeterminant(0,
+    final PseudoBooleanTerm pseudoBooleanTerm =
+        new PseudoBooleanTerm(1, new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(0,
             false) });
-    assertEquals(1, term.calculateValue(new PbSolution(new boolean[] { true },
-        new PbFunction(new Term[] { term }))));
+    assertEquals(1, pseudoBooleanTerm.calculateValue(new BitString(new boolean[] { true },
+        new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }))));
   }
 
   @Test
   public void TestDoOperation_FlippedBools_CorrectValue() {
-    final Term term =
-        new Term(1, new BooleanIndeterminant[] {
-            new BooleanIndeterminant(0, false),
-            new BooleanIndeterminant(1, false) });
-    assertEquals(1, term.calculateValue(new PbSolution(new boolean[] { true,
-        true }, new PbFunction(new Term[] { term }))));
+    final PseudoBooleanTerm pseudoBooleanTerm =
+        new PseudoBooleanTerm(1, new PsuedoBooleanIndeterminant[] {
+            new PsuedoBooleanIndeterminant(0, false),
+            new PsuedoBooleanIndeterminant(1, false) });
+    assertEquals(1, pseudoBooleanTerm.calculateValue(new BitString(new boolean[] { true,
+        true }, new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }))));
   }
 
   @Test
   public void TestDoOperation_MultileBooleanOperationsTF_CorrectValue() {
-    final Term term =
-        new Term(1, new BooleanIndeterminant[] {
-            new BooleanIndeterminant(0, false),
-            new BooleanIndeterminant(1, false) });
-    assertEquals(0, term.calculateValue(new PbSolution(new boolean[] { true,
-        false }, new PbFunction(new Term[] { term }))));
+    final PseudoBooleanTerm pseudoBooleanTerm =
+        new PseudoBooleanTerm(1, new PsuedoBooleanIndeterminant[] {
+            new PsuedoBooleanIndeterminant(0, false),
+            new PsuedoBooleanIndeterminant(1, false) });
+    assertEquals(0, pseudoBooleanTerm.calculateValue(new BitString(new boolean[] { true,
+        false }, new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }))));
   }
 
   @Test
   public void TestDoOperation_MultileBooleanOperationsTT_CorrectValue() {
-    final Term term =
-        new Term(1, new BooleanIndeterminant[] {
-            new BooleanIndeterminant(0, false),
-            new BooleanIndeterminant(1, false) });
-    assertEquals(1, term.calculateValue(new PbSolution(new boolean[] { true,
-        true }, new PbFunction(new Term[] { term }))));
+    final PseudoBooleanTerm pseudoBooleanTerm =
+        new PseudoBooleanTerm(1, new PsuedoBooleanIndeterminant[] {
+            new PsuedoBooleanIndeterminant(0, false),
+            new PsuedoBooleanIndeterminant(1, false) });
+    assertEquals(1, pseudoBooleanTerm.calculateValue(new BitString(new boolean[] { true,
+        true }, new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }))));
   }
 
   @Test
@@ -65,18 +65,18 @@ public class PbFitFuncOperatorTest {
 
     int expectedAnswer = 0;
 
-    final Term term =
-        new Term(randomModifier,
-            new BooleanIndeterminant[] { new BooleanIndeterminant(
+    final PseudoBooleanTerm pseudoBooleanTerm =
+        new PseudoBooleanTerm(randomModifier,
+            new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(
                 randomLocation, false) });
 
-    final PbSolution pbs =
-        new PbSolution(PbTests.createRandomBoolArr(solutionSize),
-            new PbFunction(new Term[] { term }));
+    final BitString pbs =
+        new BitString(PbTests.createRandomBoolArr(solutionSize),
+            new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }));
 
     if (pbs.get(randomLocation)) {
       expectedAnswer = randomModifier;
     }
-    assertEquals(expectedAnswer, term.calculateValue(pbs));
+    assertEquals(expectedAnswer, pseudoBooleanTerm.calculateValue(pbs));
   }
 }

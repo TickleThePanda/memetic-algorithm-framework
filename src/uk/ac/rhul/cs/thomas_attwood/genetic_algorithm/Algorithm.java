@@ -1,6 +1,6 @@
 package uk.ac.rhul.cs.thomas_attwood.genetic_algorithm;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.FitnessFunction;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Problem;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Solution;
 
 /**
@@ -37,7 +37,7 @@ public interface Algorithm<E extends Solution<E>> {
 	 * 
 	 * @return the fitness function
 	 */
-	FitnessFunction<E> getFitnessFunction();
+	Problem<E> getFitnessFunction();
 
 	/**
 	 * Gets the problem type that the algorithm is creating a solution for.

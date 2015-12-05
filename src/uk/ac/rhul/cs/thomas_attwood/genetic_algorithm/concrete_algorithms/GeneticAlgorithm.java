@@ -9,9 +9,8 @@ import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.AlgorithmType;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.EvoAlgorithm;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.EvoAlgorithmSettings;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.ProblemType;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.FitnessFunction;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Problem;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Solution;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.SolutionFactory;
 
 /**
  * An implementation of an
@@ -52,7 +51,7 @@ public class GeneticAlgorithm<E extends Solution<E>> implements EvoAlgorithm<E> 
 	/**
 	 * Completes the crossover and initialises the population.
 	 */
-	private final SolutionFactory<E> solutionFactory;
+	private final Solution.Generator<E> solutionFactory;
 
 	/**
 	 * The current population of solutions that the algorithm is improving.
@@ -63,7 +62,7 @@ public class GeneticAlgorithm<E extends Solution<E>> implements EvoAlgorithm<E> 
 	 * Constructs a new GeneticAlgorithm with a random seed, the
 	 * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.EvoAlgorithmSettings
 	 * EvoAlgorithmSettings}, and the
-	 * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.SolutionFactory
+	 * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Generator
 	 * SolutionFactory}. The seed is to generate random numbers for selection.
 	 *
 	 * @param settings
@@ -73,7 +72,7 @@ public class GeneticAlgorithm<E extends Solution<E>> implements EvoAlgorithm<E> 
 	 *            solutions
 	 */
 	public GeneticAlgorithm(final EvoAlgorithmSettings settings,
-			final SolutionFactory<E> solutionFactory) {
+			final Solution.Generator<E> solutionFactory) {
 		this(System.nanoTime(), settings, solutionFactory);
 	}
 
@@ -81,7 +80,7 @@ public class GeneticAlgorithm<E extends Solution<E>> implements EvoAlgorithm<E> 
 	 * Constructs a new GeneticAlgorithm with the seed, the
 	 * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.EvoAlgorithmSettings
 	 * EvoAlgorithmSettings}, and the
-	 * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.SolutionFactory
+	 * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Generator
 	 * SolutionFactory}.
 	 *
 	 * @param seed
@@ -94,7 +93,7 @@ public class GeneticAlgorithm<E extends Solution<E>> implements EvoAlgorithm<E> 
 	 */
 	public GeneticAlgorithm(final long seed,
 			final EvoAlgorithmSettings settings,
-			final SolutionFactory<E> solutionFactory) {
+			final Solution.Generator<E> solutionFactory) {
 		this.settings = settings;
 		this.random = new Random(seed);
 		this.solutionFactory = solutionFactory;
@@ -103,7 +102,7 @@ public class GeneticAlgorithm<E extends Solution<E>> implements EvoAlgorithm<E> 
 
 	/**
 	 * Constructs a new GeneticAlgorithm with the seed, the
-	 * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.SolutionFactory
+	 * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Generator
 	 * SolutionFactory}, and the default
 	 * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.EvoAlgorithmSettings
 	 * EvoAlgorithmSettings}. The seed is to generate random numbers for
@@ -116,13 +115,13 @@ public class GeneticAlgorithm<E extends Solution<E>> implements EvoAlgorithm<E> 
 	 *            solutions
 	 */
 	public GeneticAlgorithm(final long seed,
-			final SolutionFactory<E> solutionFactory) {
+			final Solution.Generator<E> solutionFactory) {
 		this(seed, EvoAlgorithmSettings.DEFAULT_SETTINGS, solutionFactory);
 	}
 
 	/**
 	 * Constructs a new GeneticAlgorithm with a random seed, the
-	 * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.SolutionFactory
+	 * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Generator
 	 * SolutionFactory}, and the default
 	 * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.EvoAlgorithmSettings
 	 * EvoAlgorithmSettings} The seed is to generate random numbers for
@@ -132,7 +131,7 @@ public class GeneticAlgorithm<E extends Solution<E>> implements EvoAlgorithm<E> 
 	 *            the solution factory to use to generate and crossover
 	 *            solutions
 	 */
-	public GeneticAlgorithm(final SolutionFactory<E> solutionFactory) {
+	public GeneticAlgorithm(final Solution.Generator<E> solutionFactory) {
 		this(EvoAlgorithmSettings.DEFAULT_SETTINGS, solutionFactory);
 	}
 
@@ -209,7 +208,7 @@ public class GeneticAlgorithm<E extends Solution<E>> implements EvoAlgorithm<E> 
 	}
 
 	@Override
-	public FitnessFunction<E> getFitnessFunction() {
+	public Problem<E> getFitnessFunction() {
 		return this.solutionFactory.getFitnessFunction();
 	}
 

@@ -22,7 +22,7 @@ public interface LocalImprovement<E extends Solution<E>> {
    * 
    * @return the type of improvement to be completed
    */
-  LocalImprovementType getType();
+  LocalImprovementExtent getType();
 
   /**
    * Gets an improved solution from the solution, using a single random improvement. This selects a

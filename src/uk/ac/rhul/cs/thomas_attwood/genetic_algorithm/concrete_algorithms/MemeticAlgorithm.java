@@ -6,7 +6,6 @@ import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.AlgorithmType;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.EvoAlgorithmSettings;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.LocalImprovement;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Solution;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.SolutionFactory;
 
 /**
  * Adds local improvement functionality to
@@ -29,7 +28,7 @@ public class MemeticAlgorithm<E extends Solution<E>> extends
    * Creates a MemeticAlgortihm with the seed, the
    * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.EvoAlgorithmSettings
    * EvoAlgorithmSettings}, the
-   * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.SolutionFactory
+   * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Generator
    * SolutionFactory}, and the
    * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.LocalImprovement
    * LocalImprovement}.
@@ -44,7 +43,7 @@ public class MemeticAlgorithm<E extends Solution<E>> extends
    *          the local improvement to use on the solutions
    */
   public MemeticAlgorithm(final long seed, final EvoAlgorithmSettings settings,
-      final SolutionFactory<E> solutionFactory,
+      final Solution.Generator<E> solutionFactory,
       final LocalImprovement<E> localImprovement) {
     super(seed, settings, solutionFactory);
     this.localImprovement = localImprovement;
@@ -54,7 +53,7 @@ public class MemeticAlgorithm<E extends Solution<E>> extends
    * Creates a MemeticAlgortihm with a random seed, the
    * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.EvoAlgorithmSettings
    * EvoAlgorithmSettings}, the
-   * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.SolutionFactory
+   * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Generator
    * SolutionFactory}, and the
    * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.LocalImprovement
    * LocalImprovement}.
@@ -67,7 +66,7 @@ public class MemeticAlgorithm<E extends Solution<E>> extends
    *          the local improvement to use on the solutions
    */
   public MemeticAlgorithm(final EvoAlgorithmSettings settings,
-      final SolutionFactory<E> solutionFactory,
+      final Solution.Generator<E> solutionFactory,
       final LocalImprovement<E> localImprovement) {
     this(System.nanoTime(), settings, solutionFactory, localImprovement);
   }
@@ -76,7 +75,7 @@ public class MemeticAlgorithm<E extends Solution<E>> extends
    * Creates a MemeticAlgortihm with a random seed, the default
    * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.EvoAlgorithmSettings
    * EvoAlgorithmSettings}, the
-   * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.SolutionFactory
+   * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Generator
    * SolutionFactory}, and the
    * {@link uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.LocalImprovement
    * LocalImprovement}.
@@ -86,7 +85,7 @@ public class MemeticAlgorithm<E extends Solution<E>> extends
    * @param localImprovement
    *          the local improvement to use on the solutions
    */
-  public MemeticAlgorithm(final SolutionFactory<E> solutionFactory,
+  public MemeticAlgorithm(final Solution.Generator<E> solutionFactory,
       final LocalImprovement<E> localImprovement) {
     this(EvoAlgorithmSettings.DEFAULT_SETTINGS_TSP, solutionFactory,
         localImprovement);

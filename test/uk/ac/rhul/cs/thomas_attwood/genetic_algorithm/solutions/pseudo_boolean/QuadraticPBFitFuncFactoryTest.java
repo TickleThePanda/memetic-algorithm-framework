@@ -9,6 +9,9 @@ import java.util.Random;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.pbf.PbFunctionGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.pbf.QuadraticPbFunctionGenerator;
+
 public class QuadraticPBFitFuncFactoryTest {
 
   @BeforeClass
@@ -21,13 +24,13 @@ public class QuadraticPBFitFuncFactoryTest {
   @Test(expected = IllegalArgumentException.class)
   public void Constructor1_SizeTooSmall_ExceptionThrown() {
     int smallSize = 1;
-    new QuadraticPbFuncFactory(smallSize);
+    new QuadraticPbFunctionGenerator(smallSize);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void Constructor2_SizeTooSmall_ExceptionThrown() {
     int smallSize = 1;
-    new QuadraticPbFuncFactory(0, smallSize);
+    new QuadraticPbFunctionGenerator(0, smallSize);
   }
 
   private ArrayList<Integer> generateLocations(final int size) {
@@ -39,14 +42,14 @@ public class QuadraticPBFitFuncFactoryTest {
     return locations;
   }
 
-  private ArrayList<BooleanIndeterminant> getBooleanOperatorList(
-      final PbFunction pbff) {
-    final ArrayList<BooleanIndeterminant> bos =
-        new ArrayList<BooleanIndeterminant>();
+  private ArrayList<PsuedoBooleanIndeterminant> getBooleanOperatorList(
+      final PsuedoBooleanFunction pbff) {
+    final ArrayList<PsuedoBooleanIndeterminant> bos =
+        new ArrayList<PsuedoBooleanIndeterminant>();
 
     for (int i = 0; i < pbff.size(); i++) {
-      final Term operation = pbff.getTerm(i);
-      for (final BooleanIndeterminant bo : operation) {
+      final PseudoBooleanTerm operation = pbff.getTerm(i);
+      for (final PsuedoBooleanIndeterminant bo : operation) {
         bos.add(bo);
       }
     }
@@ -59,11 +62,11 @@ public class QuadraticPBFitFuncFactoryTest {
     final int size = random.nextInt(10) + 5;
     final long seed = random.nextLong();
 
-    final PbFunctionFactory qpff = new QuadraticPbFuncFactory(seed, size);
+    final PbFunctionGenerator qpff = new QuadraticPbFunctionGenerator(seed, size);
 
-    final PbFunction pbff = qpff.generateFunction();
+    final PsuedoBooleanFunction pbff = qpff.generateFunction();
 
-    final ArrayList<Term> fos = new ArrayList<Term>();
+    final ArrayList<PseudoBooleanTerm> fos = new ArrayList<PseudoBooleanTerm>();
 
     for (int i = 0; i < size; i++) {
       fos.add(pbff.getTerm(i));
@@ -86,16 +89,16 @@ public class QuadraticPBFitFuncFactoryTest {
           random.nextInt(maxRandomSize - minRandomSize) + minRandomSize; // should be
                                                                          // random
       final int seed = random.nextInt();
-      final PbFunctionFactory qpff = new QuadraticPbFuncFactory(seed, size);
+      final PbFunctionGenerator qpff = new QuadraticPbFunctionGenerator(seed, size);
 
-      final PbFunction pbff = qpff.generateFunction();
+      final PsuedoBooleanFunction pbff = qpff.generateFunction();
 
       final ArrayList<Integer> locations = generateLocations(size);
-      final ArrayList<BooleanIndeterminant> bos = getBooleanOperatorList(pbff);
+      final ArrayList<PsuedoBooleanIndeterminant> bos = getBooleanOperatorList(pbff);
 
       for (final Integer location : locations) {
-        assertTrue(bos.contains(new BooleanIndeterminant(location, true))
-            || bos.contains(new BooleanIndeterminant(location, false)));
+        assertTrue(bos.contains(new PsuedoBooleanIndeterminant(location, true))
+            || bos.contains(new PsuedoBooleanIndeterminant(location, false)));
       }
     }
   }
@@ -104,16 +107,16 @@ public class QuadraticPBFitFuncFactoryTest {
   public void TestGenerateProblem_RandomSeedSize5_HasAllLocs() {
     final int seed = random.nextInt();
     final int size = 5;
-    final PbFunctionFactory qpff = new QuadraticPbFuncFactory(seed, size);
+    final PbFunctionGenerator qpff = new QuadraticPbFunctionGenerator(seed, size);
 
-    final PbFunction pbff = qpff.generateFunction();
+    final PsuedoBooleanFunction pbff = qpff.generateFunction();
 
     final ArrayList<Integer> locations = generateLocations(size);
-    final ArrayList<BooleanIndeterminant> bos = getBooleanOperatorList(pbff);
+    final ArrayList<PsuedoBooleanIndeterminant> bos = getBooleanOperatorList(pbff);
 
     for (final Integer location : locations) {
-      assertTrue(bos.contains(new BooleanIndeterminant(location, true))
-          || bos.contains(new BooleanIndeterminant(location, false)));
+      assertTrue(bos.contains(new PsuedoBooleanIndeterminant(location, true))
+          || bos.contains(new PsuedoBooleanIndeterminant(location, false)));
     }
 
   }
@@ -123,11 +126,11 @@ public class QuadraticPBFitFuncFactoryTest {
     final int size = 5;
     final long seed = random.nextLong();
 
-    final PbFunctionFactory qpff = new QuadraticPbFuncFactory(seed, size);
+    final PbFunctionGenerator qpff = new QuadraticPbFunctionGenerator(seed, size);
 
-    final PbFunction pbff = qpff.generateFunction();
+    final PsuedoBooleanFunction pbff = qpff.generateFunction();
 
-    final ArrayList<Term> fos = new ArrayList<Term>();
+    final ArrayList<PseudoBooleanTerm> fos = new ArrayList<PseudoBooleanTerm>();
 
     for (int i = 0; i < size; i++) {
       fos.add(pbff.getTerm(i));
@@ -149,16 +152,16 @@ public class QuadraticPBFitFuncFactoryTest {
         random.nextInt(maxRandomSize - minRandomSize) + minRandomSize; // should be
                                                                        // random
     final int seed = random.nextInt();
-    final PbFunctionFactory qpff = new QuadraticPbFuncFactory(seed, size);
+    final PbFunctionGenerator qpff = new QuadraticPbFunctionGenerator(seed, size);
 
-    final PbFunction pbff = qpff.generateFunction();
+    final PsuedoBooleanFunction pbff = qpff.generateFunction();
 
     final ArrayList<Integer> locations = generateLocations(size);
-    final ArrayList<BooleanIndeterminant> bos = getBooleanOperatorList(pbff);
+    final ArrayList<PsuedoBooleanIndeterminant> bos = getBooleanOperatorList(pbff);
 
     for (final Integer location : locations) {
-      assertTrue(bos.contains(new BooleanIndeterminant(location, true))
-          || bos.contains(new BooleanIndeterminant(location, false)));
+      assertTrue(bos.contains(new PsuedoBooleanIndeterminant(location, true))
+          || bos.contains(new PsuedoBooleanIndeterminant(location, false)));
     }
 
   }

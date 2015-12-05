@@ -10,7 +10,7 @@ import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.LocalImprovement
 
 public class PbLocImprovTest {
 
-  private PbFunction simpleFitnessFunction;
+  private PsuedoBooleanFunction simpleFitnessFunction;
 
   @Test
   public void GetCompleteImprovedSolution_NoImprovementPossible_OriginalRetured() {
@@ -18,10 +18,10 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, true, true, true, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     assertEquals(solution, locImprov.getCompleteImprovedSolution(solution));
   }
@@ -32,16 +32,16 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, true, false, true, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     boolean[] expectedBitSolution =
         new boolean[] { true, true, true, true, true };
 
-    PbSolution expectedSolution =
-        new PbSolution(expectedBitSolution, simpleFitnessFunction);
+    BitString expectedSolution =
+        new BitString(expectedBitSolution, simpleFitnessFunction);
     for (int i = 0; i < 10; i++) {
       assertEquals(expectedSolution,
           locImprov.getCompleteImprovedSolution(solution));
@@ -54,16 +54,16 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, false, false, true, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     boolean[] expectedBitSolution =
         new boolean[] { true, true, true, true, true };
 
-    PbSolution expectedSolution =
-        new PbSolution(expectedBitSolution, simpleFitnessFunction);
+    BitString expectedSolution =
+        new BitString(expectedBitSolution, simpleFitnessFunction);
     assertEquals(expectedSolution,
         locImprov.getCompleteImprovedSolution(solution));
   }
@@ -74,10 +74,10 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, true, true, true, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     assertEquals(solution, locImprov.getNeighbourhoodImprovedSolution(solution));
   }
@@ -88,16 +88,16 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, true, false, false, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     boolean[] expectedBitSolution =
         new boolean[] { true, true, true, false, true };
 
-    PbSolution expectedSolution =
-        new PbSolution(expectedBitSolution, simpleFitnessFunction);
+    BitString expectedSolution =
+        new BitString(expectedBitSolution, simpleFitnessFunction);
     for (int i = 0; i < 10; i++) {
       assertEquals(expectedSolution,
           locImprov.getNeighbourhoodImprovedSolution(solution));
@@ -110,16 +110,16 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, true, false, true, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     boolean[] expectedBitSolution =
         new boolean[] { true, true, true, true, true };
 
-    PbSolution expectedSolution =
-        new PbSolution(expectedBitSolution, simpleFitnessFunction);
+    BitString expectedSolution =
+        new BitString(expectedBitSolution, simpleFitnessFunction);
     for (int i = 0; i < 10; i++) {
       assertEquals(expectedSolution,
           locImprov.getNeighbourhoodImprovedSolution(solution));
@@ -132,16 +132,16 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, false, false, true, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     boolean[] expectedBitSolution =
         new boolean[] { true, true, false, true, true };
 
-    PbSolution expectedSolution =
-        new PbSolution(expectedBitSolution, simpleFitnessFunction);
+    BitString expectedSolution =
+        new BitString(expectedBitSolution, simpleFitnessFunction);
     for (int i = 0; i < 10; i++) {
       assertEquals(expectedSolution,
           locImprov.getNeighbourhoodImprovedSolution(solution));
@@ -154,10 +154,10 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, true, true, true, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     assertEquals(solution, locImprov.getSingleOrderedImprovedSolution(solution));
   }
@@ -168,16 +168,16 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, true, false, true, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     boolean[] expectedBitSolution =
         new boolean[] { true, true, true, true, true };
 
-    PbSolution expectedSolution =
-        new PbSolution(expectedBitSolution, simpleFitnessFunction);
+    BitString expectedSolution =
+        new BitString(expectedBitSolution, simpleFitnessFunction);
     for (int i = 0; i < 10; i++) {
       assertEquals(expectedSolution,
           locImprov.getSingleOrderedImprovedSolution(solution));
@@ -190,16 +190,16 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, false, false, true, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     boolean[] expectedBitSolution =
         new boolean[] { true, true, false, true, true };
 
-    PbSolution expectedSolution =
-        new PbSolution(expectedBitSolution, simpleFitnessFunction);
+    BitString expectedSolution =
+        new BitString(expectedBitSolution, simpleFitnessFunction);
     for (int i = 0; i < 10; i++) {
       assertEquals(expectedSolution,
           locImprov.getSingleOrderedImprovedSolution(solution));
@@ -212,10 +212,10 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, true, true, true, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     assertEquals(solution, locImprov.getSingleRandomImprovedSolution(solution));
   }
@@ -226,16 +226,16 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, true, false, true, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     boolean[] expectedBitSolution =
         new boolean[] { true, true, true, true, true };
 
-    PbSolution expectedSolution =
-        new PbSolution(expectedBitSolution, simpleFitnessFunction);
+    BitString expectedSolution =
+        new BitString(expectedBitSolution, simpleFitnessFunction);
     for (int i = 0; i < 10; i++) {
       assertEquals(expectedSolution,
           locImprov.getSingleRandomImprovedSolution(solution));
@@ -248,10 +248,10 @@ public class PbLocImprovTest {
     boolean[] originalBitSolution =
         new boolean[] { true, false, false, true, true };
 
-    PbSolution solution =
-        new PbSolution(originalBitSolution, simpleFitnessFunction);
+    BitString solution =
+        new BitString(originalBitSolution, simpleFitnessFunction);
 
-    LocalImprovement<PbSolution> locImprov = new PbLocImprov();
+    LocalImprovement<BitString> locImprov = new FlipBitLocalImprovement();
 
     int expectedFitness = 400;
 
@@ -265,23 +265,23 @@ public class PbLocImprovTest {
   @Before
   public void setUpSimple() {
     final int coefficient = 100;
-    Term[] terms =
-        new Term[] {
-            new Term(
+    PseudoBooleanTerm[] terms =
+        new PseudoBooleanTerm[] {
+            new PseudoBooleanTerm(
                 coefficient,
-                new BooleanIndeterminant[] { new BooleanIndeterminant(0, false) }),
-            new Term(
+                new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(0, false) }),
+            new PseudoBooleanTerm(
                 coefficient,
-                new BooleanIndeterminant[] { new BooleanIndeterminant(1, false) }),
-            new Term(
+                new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(1, false) }),
+            new PseudoBooleanTerm(
                 coefficient,
-                new BooleanIndeterminant[] { new BooleanIndeterminant(2, false) }),
-            new Term(
+                new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(2, false) }),
+            new PseudoBooleanTerm(
                 coefficient,
-                new BooleanIndeterminant[] { new BooleanIndeterminant(3, false) }),
-            new Term(
+                new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(3, false) }),
+            new PseudoBooleanTerm(
                 coefficient,
-                new BooleanIndeterminant[] { new BooleanIndeterminant(4, false) }) };
-    simpleFitnessFunction = new PbFunction(terms);
+                new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(4, false) }) };
+    simpleFitnessFunction = new PsuedoBooleanFunction(terms);
   }
 }

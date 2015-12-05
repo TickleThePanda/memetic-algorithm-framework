@@ -16,8 +16,8 @@ import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.ProblemType;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.controller.SimulationPresenter;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.view.PbSolutionView;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.gui.view.TSPSolutionView;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.PbSolution;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.TspTour;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.BitString;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.Tour;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -159,8 +159,8 @@ public final class SimulationPresenterBuilder implements Serializable {
    * @return a new simulation window for a Linear Psuedo-Boolean Function from the settings
    *         provided.
    */
-  public SimulationPresenter<PbSolution> createNewPblSimulationWindow() {
-    Algorithm<PbSolution> algorithm;
+  public SimulationPresenter<BitString> createNewPblSimulationWindow() {
+    Algorithm<BitString> algorithm;
     switch (this.getAlgorithmType()) {
     case GENETIC:
       algorithm =
@@ -179,7 +179,7 @@ public final class SimulationPresenterBuilder implements Serializable {
     }
     final PbSolutionView pbsv = new PbSolutionView();
 
-    return new SimulationPresenter<PbSolution>(algorithm, pbsv);
+    return new SimulationPresenter<BitString>(algorithm, pbsv);
   }
 
   /**
@@ -189,9 +189,9 @@ public final class SimulationPresenterBuilder implements Serializable {
    * @return a new simulation window for a Quadratic Psuedo-Boolean Function from the settings
    *         provided.
    */
-  public SimulationPresenter<PbSolution> createNewPbqSimulationWindow() {
+  public SimulationPresenter<BitString> createNewPbqSimulationWindow() {
 
-    Algorithm<PbSolution> algorithm;
+    Algorithm<BitString> algorithm;
     switch (this.getAlgorithmType()) {
     case GENETIC:
       algorithm =
@@ -208,7 +208,7 @@ public final class SimulationPresenterBuilder implements Serializable {
     }
     final PbSolutionView pbsv = new PbSolutionView();
 
-    return new SimulationPresenter<PbSolution>(algorithm, pbsv);
+    return new SimulationPresenter<BitString>(algorithm, pbsv);
   }
 
   /**
@@ -247,8 +247,8 @@ public final class SimulationPresenterBuilder implements Serializable {
    * 
    * @return a new simulation window for a EUCLID_TSP problem from the settings provided.
    */
-  public SimulationPresenter<TspTour> createNewTspSimulationWindow() {
-    Algorithm<TspTour> algorithm;
+  public SimulationPresenter<Tour> createNewTspSimulationWindow() {
+    Algorithm<Tour> algorithm;
     switch (this.getAlgorithmType()) {
     case GENETIC:
       algorithm =
@@ -269,7 +269,7 @@ public final class SimulationPresenterBuilder implements Serializable {
       return null;
     }
     final TSPSolutionView tspv = new TSPSolutionView();
-    return new SimulationPresenter<TspTour>(algorithm, tspv);
+    return new SimulationPresenter<Tour>(algorithm, tspv);
   }
 
   /**

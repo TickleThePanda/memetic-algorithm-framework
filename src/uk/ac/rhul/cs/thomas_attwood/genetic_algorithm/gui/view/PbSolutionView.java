@@ -11,17 +11,17 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.PbFunction;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.PbSolution;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.PbSolutionFactory;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.QuadraticPbFuncFactory;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.PsuedoBooleanFunction;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.pbf.QuadraticPbFunctionGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.BitString;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.BitStringFactory;
 
-public class PbSolutionView extends SolutionView<PbSolution> {
+public class PbSolutionView extends SolutionView<BitString> {
 
   public static void main(String[] args) {
-    PbFunction function = new QuadraticPbFuncFactory(10000).generateFunction();
+    PsuedoBooleanFunction function = new QuadraticPbFunctionGenerator(10000).generateFunction();
 
-    PbSolution solution = new PbSolutionFactory(function).generateSolution();
+    BitString solution = new BitStringFactory(function).generateSolution();
 
     PbSolutionView solutionView = new PbSolutionView();
 
@@ -50,7 +50,7 @@ public class PbSolutionView extends SolutionView<PbSolution> {
 
   private static final int DEFAULT_SIZE = 500;
 
-  private PbSolution solution = null;
+  private BitString solution = null;
 
   public PbSolutionView() {
     setPreferredSize(new Dimension(DEFAULT_SIZE, DEFAULT_SIZE));
@@ -106,7 +106,7 @@ public class PbSolutionView extends SolutionView<PbSolution> {
   }
 
   @Override
-  public void setSolution(final PbSolution solution) {
+  public void setSolution(final BitString solution) {
     this.solution = solution;
     this.repaint();
   }

@@ -4,18 +4,18 @@ import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.EvoAlgorithmSettings;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.concrete_algorithms.GeneticAlgorithm;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.concrete_algorithms.MemeticAlgorithm;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.concrete_algorithms.TspNnAlgorithm;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.pbf.LinearPbFunctionGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.pbf.QuadraticPbFunctionGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.tsp.EuclidianCitiesGenerator;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.LocalImprovement;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.LinearPbFunctionFactory;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.PbFunction;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.PbLocImprov;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.PbSolution;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.PbSolutionFactory;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.QuadraticPbFuncFactory;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.EuclidTspFunction;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.EuclidTspFunctionFactory;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.TspLiMulti;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.TspTour;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.TspTourFactory;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.PsuedoBooleanFunction;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.FlipBitLocalImprovement;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.BitString;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.pseudo_boolean.BitStringFactory;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.Cities;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.City.Euclidian;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.MultiLocalImprovement;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.Tour;
 
 /**
  * Generates each concrete algorithm on a random problem. Provided to keep type safety when type is
@@ -36,12 +36,12 @@ public class AlgorithmFactory {
    * @return a genetic algorithm, with the settings, on a random linear pseudo-boolean function,
    *         with the seed and the size.
    */
-  public GeneticAlgorithm<PbSolution> createLinearPbGeneticAlgorithm(
+  public GeneticAlgorithm<BitString> createLinearPbGeneticAlgorithm(
       final long seed, final int size, final EvoAlgorithmSettings settings) {
-    final PbFunction function =
-        new LinearPbFunctionFactory(seed, size).generateFunction();
-    final PbSolutionFactory solFactory = new PbSolutionFactory(function);
-    return new GeneticAlgorithm<PbSolution>(solFactory);
+    final PsuedoBooleanFunction function =
+        new LinearPbFunctionGenerator(seed, size).generateFunction();
+    final BitStringFactory solFactory = new BitStringFactory(function);
+    return new GeneticAlgorithm<BitString>(solFactory);
   }
 
   /**
@@ -57,13 +57,13 @@ public class AlgorithmFactory {
    * @return a memetic algorithm, with the settings, on a random linear pseudo-boolean function,
    *         with the seed and the size.
    */
-  public MemeticAlgorithm<PbSolution> createLinearPbMemeticAlgorithm(
+  public MemeticAlgorithm<BitString> createLinearPbMemeticAlgorithm(
       final long seed, final int size, final EvoAlgorithmSettings settings) {
-    final PbFunction function =
-        new LinearPbFunctionFactory(seed, size).generateFunction();
-    final PbSolutionFactory solFactory = new PbSolutionFactory(function);
-    final LocalImprovement<PbSolution> improv = new PbLocImprov();
-    return new MemeticAlgorithm<PbSolution>(solFactory, improv);
+    final PsuedoBooleanFunction function =
+        new LinearPbFunctionGenerator(seed, size).generateFunction();
+    final BitStringFactory solFactory = new BitStringFactory(function);
+    final LocalImprovement<BitString> improv = new FlipBitLocalImprovement();
+    return new MemeticAlgorithm<BitString>(solFactory, improv);
   }
 
   /**
@@ -79,12 +79,12 @@ public class AlgorithmFactory {
    * @return a genetic algorithm, with the settings, on a random quadratic pseudo-boolean function,
    *         with the seed and the size.
    */
-  public GeneticAlgorithm<PbSolution> createQuadraticPbGeneticAlgorithm(
+  public GeneticAlgorithm<BitString> createQuadraticPbGeneticAlgorithm(
       final long seed, final int size, final EvoAlgorithmSettings settings) {
-    final PbFunction function =
-        new QuadraticPbFuncFactory(seed, size).generateFunction();
-    final PbSolutionFactory solFactory = new PbSolutionFactory(function);
-    return new GeneticAlgorithm<PbSolution>(solFactory);
+    final PsuedoBooleanFunction function =
+        new QuadraticPbFunctionGenerator(seed, size).generateFunction();
+    final BitStringFactory solFactory = new BitStringFactory(function);
+    return new GeneticAlgorithm<BitString>(solFactory);
   }
 
   /**
@@ -100,13 +100,13 @@ public class AlgorithmFactory {
    * @return a memetic algorithm, with the settings, on a random quadratic pseudo-boolean function,
    *         with the seed and the size.
    */
-  public MemeticAlgorithm<PbSolution> createQuadraticPbMemeticAlgorithm(
+  public MemeticAlgorithm<BitString> createQuadraticPbMemeticAlgorithm(
       final long seed, final int size, final EvoAlgorithmSettings settings) {
-    final PbFunction function =
-        new QuadraticPbFuncFactory(seed, size).generateFunction();
-    final PbSolutionFactory solFactory = new PbSolutionFactory(function);
-    final LocalImprovement<PbSolution> improv = new PbLocImprov();
-    return new MemeticAlgorithm<PbSolution>(solFactory, improv);
+    final PsuedoBooleanFunction function =
+        new QuadraticPbFunctionGenerator(seed, size).generateFunction();
+    final BitStringFactory solFactory = new BitStringFactory(function);
+    final LocalImprovement<BitString> improv = new FlipBitLocalImprovement();
+    return new MemeticAlgorithm<BitString>(solFactory, improv);
   }
 
   /**
@@ -122,12 +122,12 @@ public class AlgorithmFactory {
    * @return a genetic algorithm, with the settings, on a random EUCLID_TSP problem, with the seed and the
    *         size.
    */
-  public GeneticAlgorithm<TspTour> createTspGeneticAlgorithm(final long seed,
+  public GeneticAlgorithm<Tour> createTspGeneticAlgorithm(final long seed,
       final int size, final EvoAlgorithmSettings settings) {
-    final EuclidTspFunction function =
-        new EuclidTspFunctionFactory(seed, size).generateFunction();
-    final TspTourFactory solFactory = new TspTourFactory(function);
-    return new GeneticAlgorithm<TspTour>(solFactory);
+    final Cities<Euclidian> function =
+        new EuclidianCitiesGenerator(seed, size).generateFunction();
+    final Tour.Generator solFactory = new Tour.Generator(function);
+    return new GeneticAlgorithm<Tour>(solFactory);
   }
 
   /**
@@ -143,12 +143,12 @@ public class AlgorithmFactory {
    * @return a memetic algorithm, with the settings, on a random EUCLID_TSP problem, with the seed and the
    *         size.
    */
-  public MemeticAlgorithm<TspTour> createTspMemeticAlgorithm(final long seed,
+  public MemeticAlgorithm<Tour> createTspMemeticAlgorithm(final long seed,
       final int size, final EvoAlgorithmSettings settings) {
-    final EuclidTspFunction function =
-        new EuclidTspFunctionFactory(seed, size).generateFunction();
-    final TspTourFactory solFactory = new TspTourFactory(function);
-    return new MemeticAlgorithm<TspTour>(solFactory, new TspLiMulti());
+    final Cities<Euclidian> function =
+        new EuclidianCitiesGenerator(seed, size).generateFunction();
+    final Tour.Generator solFactory = new Tour.Generator(function);
+    return new MemeticAlgorithm<Tour>(solFactory, new MultiLocalImprovement());
   }
 
   /**
@@ -163,8 +163,8 @@ public class AlgorithmFactory {
    *         and the size.
    */
   public TspNnAlgorithm createTspNnAlgorithm(final long seed, final int size) {
-    final EuclidTspFunction function =
-        new EuclidTspFunctionFactory(seed, size).generateFunction();
+    final Cities<Euclidian> function =
+        new EuclidianCitiesGenerator(seed, size).generateFunction();
     return new TspNnAlgorithm(function);
   }
 

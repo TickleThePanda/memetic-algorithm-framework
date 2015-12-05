@@ -8,8 +8,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.FitnessFunction;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.SolutionFactory;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.function_generators.pbf.QuadraticPbFunctionGenerator;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Problem;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Solution.Generator;
 
 public class PBSolutionFactoryTest {
 
@@ -20,20 +21,20 @@ public class PBSolutionFactoryTest {
 
   private static Random random;
 
-  private FitnessFunction<PbSolution> function;
+  private Problem<BitString> function;
 
   @Test
   public void GetFitnessFunction_RandomFitnessFunction_CorrectFitnessFunction() {
     final int seed = 0;
-    final SolutionFactory<PbSolution> pbsg =
-        new PbSolutionFactory(seed, function);
+    final Generator<BitString> pbsg =
+        new BitStringFactory(seed, function);
 
     assertEquals(function, pbsg.getFitnessFunction());
   }
 
   @Before
   public void setUp() {
-    function = new QuadraticPbFuncFactory(10).generateFunction();
+    function = new QuadraticPbFunctionGenerator(10).generateFunction();
   }
 
   @Test
@@ -41,18 +42,18 @@ public class PBSolutionFactoryTest {
     final int maxSize = 6;
     final long seed = 0;
 
-    final FitnessFunction<PbSolution> function =
-        new QuadraticPbFuncFactory(maxSize).generateFunction();
+    final Problem<BitString> function =
+        new QuadraticPbFunctionGenerator(maxSize).generateFunction();
 
-    final PbSolution bf1 =
-        new PbSolution(new boolean[] { true, false, true, false, true },
+    final BitString bf1 =
+        new BitString(new boolean[] { true, false, true, false, true },
             function);
-    final PbSolution bf2 =
-        new PbSolution(new boolean[] { false, true, false, true, false, true },
+    final BitString bf2 =
+        new BitString(new boolean[] { false, true, false, true, false, true },
             function);
 
-    final PbSolution child =
-        new PbSolutionFactory(seed, function).crossover(bf1, bf2);
+    final BitString child =
+        new BitStringFactory(seed, function).crossover(bf1, bf2);
 
     final Random seededRandom = new Random(seed);
 
@@ -72,17 +73,17 @@ public class PBSolutionFactoryTest {
     final int maxSize = 5;
     final long seed = 0;
 
-    final FitnessFunction<PbSolution> function =
-        new QuadraticPbFuncFactory(maxSize).generateFunction();
+    final Problem<BitString> function =
+        new QuadraticPbFunctionGenerator(maxSize).generateFunction();
 
-    final PbSolution bf1 =
-        new PbSolution(new boolean[] { true, false, true, false, true },
+    final BitString bf1 =
+        new BitString(new boolean[] { true, false, true, false, true },
             function);
-    final PbSolution bf2 =
-        new PbSolution(new boolean[] { false, true, false, true }, function);
+    final BitString bf2 =
+        new BitString(new boolean[] { false, true, false, true }, function);
 
-    final PbSolution child =
-        new PbSolutionFactory(seed, function).crossover(bf1, bf2);
+    final BitString child =
+        new BitStringFactory(seed, function).crossover(bf1, bf2);
 
     final Random seededRandom = new Random(seed);
 
@@ -108,22 +109,22 @@ public class PBSolutionFactoryTest {
         random.nextInt(maxChildren - minChildren) + minChildren;
     final int size = 4;
 
-    final FitnessFunction<PbSolution> function =
-        new QuadraticPbFuncFactory(size).generateFunction();
+    final Problem<BitString> function =
+        new QuadraticPbFunctionGenerator(size).generateFunction();
 
     final boolean[] bools1 = new boolean[] { true, true, false, false };
     final boolean[] bools2 = new boolean[] { false, true, true, false };
 
-    final PbSolution bf1 = new PbSolution(bools1, function);
-    final PbSolution bf2 = new PbSolution(bools2, function);
+    final BitString bf1 = new BitString(bools1, function);
+    final BitString bf2 = new BitString(bools2, function);
 
-    final PbSolutionFactory pbSolutionFactory =
-        new PbSolutionFactory(seed, function);
+    final BitStringFactory bitStringFactory =
+        new BitStringFactory(seed, function);
 
-    final PbSolution[] children = new PbSolution[nChildren];
+    final BitString[] children = new BitString[nChildren];
 
     for (int i = 0; i < nChildren; i++) {
-      children[i] = pbSolutionFactory.crossover(bf1, bf2);
+      children[i] = bitStringFactory.crossover(bf1, bf2);
     }
 
     final Random seededRandom = new Random(seed);
@@ -152,22 +153,22 @@ public class PBSolutionFactoryTest {
 
     final int size = 4;
 
-    final FitnessFunction<PbSolution> function =
-        new QuadraticPbFuncFactory(size).generateFunction();
+    final Problem<BitString> function =
+        new QuadraticPbFunctionGenerator(size).generateFunction();
 
     final boolean[] bools1 = new boolean[] { true, true, false, false };
     final boolean[] bools2 = new boolean[] { false, true, true, false };
 
-    final PbSolution bf1 = new PbSolution(bools1, function);
-    final PbSolution bf2 = new PbSolution(bools2, function);
+    final BitString bf1 = new BitString(bools1, function);
+    final BitString bf2 = new BitString(bools2, function);
 
-    final PbSolutionFactory pbSolutionFactory =
-        new PbSolutionFactory(seed, function);
+    final BitStringFactory bitStringFactory =
+        new BitStringFactory(seed, function);
 
-    final PbSolution[] children = new PbSolution[nChildren];
+    final BitString[] children = new BitString[nChildren];
 
     for (int i = 0; i < nChildren; i++) {
-      children[i] = pbSolutionFactory.crossover(bf1, bf2);
+      children[i] = bitStringFactory.crossover(bf1, bf2);
     }
 
     final Random seededRandom = new Random(seed);
@@ -193,18 +194,18 @@ public class PBSolutionFactoryTest {
     final int randomSize =
         random.nextInt(maxRandomSize - minRandomSize) + minRandomSize;
 
-    final FitnessFunction<PbSolution> function =
-        new QuadraticPbFuncFactory(randomSize).generateFunction();
+    final Problem<BitString> function =
+        new QuadraticPbFunctionGenerator(randomSize).generateFunction();
 
     final long seed = 0;
 
-    final PbSolution bf1 =
-        new PbSolution(PbTests.createRandomBoolArr(randomSize), function);
-    final PbSolution bf2 =
-        new PbSolution(PbTests.createRandomBoolArr(randomSize), function);
+    final BitString bf1 =
+        new BitString(PbTests.createRandomBoolArr(randomSize), function);
+    final BitString bf2 =
+        new BitString(PbTests.createRandomBoolArr(randomSize), function);
 
-    final PbSolution child =
-        new PbSolutionFactory(seed, function).crossover(bf1, bf2);
+    final BitString child =
+        new BitStringFactory(seed, function).crossover(bf1, bf2);
 
     final Random seededRandom = new Random(seed);
 
@@ -226,15 +227,15 @@ public class PBSolutionFactoryTest {
     final int size = 10;
     final long seed = random.nextLong();
 
-    final FitnessFunction<PbSolution> function =
-        new QuadraticPbFuncFactory(size).generateFunction();
+    final Problem<BitString> function =
+        new QuadraticPbFunctionGenerator(size).generateFunction();
 
-    final SolutionFactory<PbSolution> pbsg =
-        new PbSolutionFactory(seed, function);
+    final Generator<BitString> pbsg =
+        new BitStringFactory(seed, function);
 
     final Random testRandom = new Random(seed);
 
-    final PbSolution solution = pbsg.generateSolution();
+    final BitString solution = pbsg.generateSolution();
 
     // throwaway seed generation
     testRandom.nextLong();
@@ -250,16 +251,16 @@ public class PBSolutionFactoryTest {
     final int nSols = 10;
     final long seed = random.nextLong();
 
-    final FitnessFunction<PbSolution> function =
-        new QuadraticPbFuncFactory(size).generateFunction();
+    final Problem<BitString> function =
+        new QuadraticPbFunctionGenerator(size).generateFunction();
 
     final Random testRandom = new Random(seed);
-    final SolutionFactory<PbSolution> pbsg =
-        new PbSolutionFactory(seed, function);
+    final Generator<BitString> pbsg =
+        new BitStringFactory(seed, function);
 
     for (int j = 0; j < nSols; j++) {
 
-      final PbSolution solution = pbsg.generateSolution();
+      final BitString solution = pbsg.generateSolution();
 
       // throwaway seed generation
       testRandom.nextLong();
@@ -273,12 +274,12 @@ public class PBSolutionFactoryTest {
   @Test
   public void TestGenerateSolution_Seed0_SolutionCorrectlyGenerated() {
     final int seed = 0;
-    final SolutionFactory<PbSolution> pbsg =
-        new PbSolutionFactory(seed, function);
+    final Generator<BitString> pbsg =
+        new BitStringFactory(seed, function);
 
     final Random testRandom = new Random(seed);
 
-    final PbSolution solution = pbsg.generateSolution();
+    final BitString solution = pbsg.generateSolution();
 
     // throwaway seed generation
     testRandom.nextLong();

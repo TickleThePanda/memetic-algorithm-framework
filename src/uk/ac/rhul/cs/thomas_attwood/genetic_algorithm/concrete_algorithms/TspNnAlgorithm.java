@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.Algorithm;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.AlgorithmType;
 import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.ProblemType;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.FitnessFunction;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.TspFunction;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.TspTour;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.Problem;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.Cities;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.Tour;
 
 /**
  * An implementation of Nearest Neighbour on EUCLID_TSP.
  */
-public class TspNnAlgorithm implements Algorithm<TspTour> {
+public class TspNnAlgorithm implements Algorithm<Tour> {
 
 	/**
 	 * The function that the algorithm has to find a solution for.
 	 */
-	private final TspFunction<?> function;
+	private final Cities<?> cities;
 
 	/**
 	 * The list of unvisited cities.
@@ -35,7 +35,7 @@ public class TspNnAlgorithm implements Algorithm<TspTour> {
 	 * @param function
 	 *            the function to be used to find a solution for
 	 */
-	public TspNnAlgorithm(final TspFunction<?> function) {
+	public TspNnAlgorithm(final Cities<?> function) {
 		this(function, 0);
 	}
 
@@ -48,8 +48,8 @@ public class TspNnAlgorithm implements Algorithm<TspTour> {
 	 * @param startingCity
 	 *            the starting location for algorithm
 	 */
-	public TspNnAlgorithm(final TspFunction<?> function, final int startingCity) {
-		this.function = function;
+	public TspNnAlgorithm(final Cities<?> function, final int startingCity) {
+		this.cities = function;
 		for (int i = 0; i < function.size(); i++) {
 			unvisitedCities.add(i);
 		}
@@ -61,7 +61,7 @@ public class TspNnAlgorithm implements Algorithm<TspTour> {
 	 * 
 	 * @return the solution
 	 */
-	private TspTour createSolution() {
+	private Tour createSolution() {
 		final int[] order = new int[visitedCities.size()
 				+ unvisitedCities.size()];
 		int solutionCityIndex = 0;
@@ -71,7 +71,7 @@ public class TspNnAlgorithm implements Algorithm<TspTour> {
 		for (final int city : unvisitedCities) {
 			order[solutionCityIndex++] = city;
 		}
-		return new TspTour(order, function);
+		return new Tour(order, cities);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class TspNnAlgorithm implements Algorithm<TspTour> {
 	 * 
 	 * @return the solution
 	 */
-	public TspTour doAlgorithm() {
+	public Tour doAlgorithm() {
 		while (true)
 			if (doAlgorithmStep())
 				break;
@@ -97,7 +97,7 @@ public class TspNnAlgorithm implements Algorithm<TspTour> {
 		final int currCity = visitedCities.get(visitedCities.size() - 1);
 
 		for (final int newCity : unvisitedCities) {
-			if (function.distance(currCity, newCity) < function.distance(
+			if (cities.distance(currCity, newCity) < cities.distance(
 					currCity, bestCity)) {
 				bestCity = newCity;
 			}
@@ -114,13 +114,13 @@ public class TspNnAlgorithm implements Algorithm<TspTour> {
 	}
 
 	@Override
-	public TspTour getBestSolution() {
+	public Tour getBestSolution() {
 		return createSolution();
 	}
 
 	@Override
-	public FitnessFunction<TspTour> getFitnessFunction() {
-		return function;
+	public Problem<Tour> getFitnessFunction() {
+		return cities;
 	}
 
 	@Override

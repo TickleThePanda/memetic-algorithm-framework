@@ -9,11 +9,11 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.TspFunction;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.TspPoint;
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.TspTour;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.Cities;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.City;
+import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.tsp.Tour;
 
-public class TSPSolutionView extends SolutionView<TspTour> {
+public class TSPSolutionView extends SolutionView<Tour> {
 	/**
    *
    */
@@ -23,7 +23,7 @@ public class TSPSolutionView extends SolutionView<TspTour> {
 
 	private static final float DEFAULT_CITY_SIZE = 2.5f / DEFAULT_SIZE; // px
 
-	private TspTour solution;
+	private Tour solution;
 
 	public TSPSolutionView() {
 		setPreferredSize(new Dimension(DEFAULT_SIZE, DEFAULT_SIZE));
@@ -47,7 +47,7 @@ public class TSPSolutionView extends SolutionView<TspTour> {
       final int width = getWidth() - xmargin;
       final int height = getHeight() - ymargin;
 
-      final TspFunction<?> ff = solution.getFitnessFunction();
+      final Cities<?> ff = solution.getFitnessFunction();
 
       int minX = Integer.MAX_VALUE;
       int minY = Integer.MAX_VALUE;
@@ -55,7 +55,7 @@ public class TSPSolutionView extends SolutionView<TspTour> {
       int maxX = Integer.MIN_VALUE;
       int maxY = Integer.MIN_VALUE;
 
-      for (final TspPoint<?> c : ff) {
+      for (final City<?> c : ff) {
         if (c.getX() < minX) {
           minX = (int) c.getX();
         } else if (c.getX() > maxX) {
@@ -97,7 +97,7 @@ public class TSPSolutionView extends SolutionView<TspTour> {
 
       g.setColor(Color.BLACK);
 
-      for (final TspPoint<?> c : ff) {
+      for (final City<?> c : ff) {
         double startx = c.getX();
         double starty = c.getY();
 
@@ -117,7 +117,7 @@ public class TSPSolutionView extends SolutionView<TspTour> {
   }
 
 	@Override
-	public void setSolution(final TspTour solution) {
+	public void setSolution(final Tour solution) {
 		this.solution = solution;
 		this.repaint();
 	}

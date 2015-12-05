@@ -8,15 +8,13 @@ import org.moeaframework.problem.tsplib.DistanceTable;
 import org.moeaframework.problem.tsplib.NodeCoordinates;
 import org.moeaframework.problem.tsplib.TSPInstance;
 
-import uk.ac.rhul.cs.thomas_attwood.genetic_algorithm.solutions.FitnessFunction;
-
 public class TspReader {
 
 	public TspReader() {
 
 	}
 
-	public TspFunction readProblem(File file) {
+	public Cities<?> readProblem(File file) {
 		TSPInstance instance = null;
 		try {
 			instance = new TSPInstance(file);
@@ -24,32 +22,33 @@ public class TspReader {
 			e.printStackTrace();
 		}
 		DistanceTable dt = instance.getDistanceTable();
-		TspFunction fit = null;
+		Cities fit = null;
 		switch (instance.getEdgeWeightType()) {
 		case EUC_2D: {
 			NodeCoordinates nc = ((NodeCoordinates) dt);
-			EuclidPoint[] points = new EuclidPoint[nc.size()];
+			City.Euclidian[] points = new City.Euclidian[nc.size()];
 
 			for (int i = 1; i <= nc.size(); i++) {
 				double x = nc.get(i).getPosition()[0];
 				double y = nc.get(i).getPosition()[1];
-				EuclidPoint point = new EuclidPoint(x, y);
+				City.Euclidian point = new City.Euclidian(x, y);
 				points[i - 1] = point;
 			}
 
-			fit = new EuclidTspFunction(points, file.getName());
+			fit = new Cities<City.Euclidian>(points, file.getName());
 			break;
 		}
 		case GEO: {
 			NodeCoordinates nc = ((NodeCoordinates) dt);
-			Point2D[] points = new Point2D[nc.size()];
+			City.Geo[] points = new City.Geo[nc.size()];
 			for (int i = 1; i <= nc.size(); i++) {
 				double x = nc.get(i).getPosition()[0];
 				double y = nc.get(i).getPosition()[1];
-				Point2D point = new Point2D.Double(x, y);
+				City.Geo point = new City.Geo(x, y);
+				
 				points[i - 1] = point;
 			}
-			fit = new GeoTspFunction(points, file.getName());
+			fit = new Cities<City.Geo>(points, file.getName());
 			break;
 		}
 		}
