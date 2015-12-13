@@ -36,17 +36,17 @@ public class EvoAlgorithmSettings {
 
     /**
      * Builds a new EvoAlgorithmSettings with the defined settings.
-     * 
+     *
      * @return a new EvoAlgorithmSettings with the defined settings
      */
     public EvoAlgorithmSettings build() {
-      return new EvoAlgorithmSettings(poolSize, eliteSize, crossoverSize,
-          mutationRate, stepsDuplicates);
+      return new EvoAlgorithmSettings(poolSize, eliteSize, crossoverSize, mutationRate,
+          stepsDuplicates);
     }
 
     /**
      * Gets the currently defined crossover size.
-     * 
+     *
      * @return the currently defined crossover size
      */
     public int getCrossoverSize() {
@@ -55,7 +55,7 @@ public class EvoAlgorithmSettings {
 
     /**
      * Gets the currently defined elite size.
-     * 
+     *
      * @return the currently defined elite size
      */
     public int getEliteSize() {
@@ -64,7 +64,7 @@ public class EvoAlgorithmSettings {
 
     /**
      * Gets the currently defined mutation rate.
-     * 
+     *
      * @return the currently defined mutation rate
      */
     public float getMutationRate() {
@@ -73,7 +73,7 @@ public class EvoAlgorithmSettings {
 
     /**
      * Gets the currently defined pool size.
-     * 
+     *
      * @return the currently defined pool size
      */
     public int getPoolSize() {
@@ -82,7 +82,7 @@ public class EvoAlgorithmSettings {
 
     /**
      * Gets the currently defined steps before removing duplicates.
-     * 
+     *
      * @return the currently defined steps before removing duplicates
      */
     public int getStepsDuplicates() {
@@ -91,7 +91,7 @@ public class EvoAlgorithmSettings {
 
     /**
      * Sets the crossover size.
-     * 
+     *
      * @return this builder
      */
     public Builder setCrossoverSize(final int crossoverSize) {
@@ -101,7 +101,7 @@ public class EvoAlgorithmSettings {
 
     /**
      * Sets the elite size.
-     * 
+     *
      * @return this builder
      */
     public Builder setEliteSize(final int eilteSize) {
@@ -111,7 +111,7 @@ public class EvoAlgorithmSettings {
 
     /**
      * Sets the mutation rate.
-     * 
+     *
      * @return this builder
      */
     public Builder setMutationRate(final float mutationRate) {
@@ -121,7 +121,7 @@ public class EvoAlgorithmSettings {
 
     /**
      * Sets the pool size.
-     * 
+     *
      * @return this builder
      */
     public Builder setPoolSize(final int poolSize) {
@@ -131,7 +131,7 @@ public class EvoAlgorithmSettings {
 
     /**
      * Sets the steps before removing duplicates.
-     * 
+     *
      * @return this builder
      */
     public Builder setStepsDuplicates(final int stepsDuplicates) {
@@ -193,16 +193,14 @@ public class EvoAlgorithmSettings {
   /**
    * The default settings.
    */
-  public static final EvoAlgorithmSettings DEFAULT_SETTINGS =
-      new EvoAlgorithmSettings(POOL_SIZE, CROSSOVER_SIZE, ELITIST_SIZE,
-          MUTATION_RATE, STEPS_DUPLICATES);
+  public static final EvoAlgorithmSettings DEFAULT_SETTINGS = new EvoAlgorithmSettings(POOL_SIZE,
+      CROSSOVER_SIZE, ELITIST_SIZE, MUTATION_RATE, STEPS_DUPLICATES);
 
   /**
    * The default settings for EUCLID_TSP.
    */
-  public static final EvoAlgorithmSettings DEFAULT_SETTINGS_TSP =
-      new EvoAlgorithmSettings(POOL_SIZE_TSP, 
-          ELITIST_SIZE_TSP, CROSSOVER_SIZE_TSP, MUTATION_RATE_TSP, STEPS_DUPLICATES_TSP);
+  public static final EvoAlgorithmSettings DEFAULT_SETTINGS_TSP = new EvoAlgorithmSettings(
+      POOL_SIZE_TSP, ELITIST_SIZE_TSP, CROSSOVER_SIZE_TSP, MUTATION_RATE_TSP, STEPS_DUPLICATES_TSP);
 
   /**
    * The elite size, the number of best solutions that are saved each generation.
@@ -232,7 +230,7 @@ public class EvoAlgorithmSettings {
   /**
    * This method initialises an EvoAlgorithmSettings object with the pool size, the elitist size,
    * the crossover size, the mutation rate, and the steps before removing duplicates.
-   * 
+   *
    * @param poolSize
    *          the pool size
    * @param elitistSize
@@ -244,9 +242,8 @@ public class EvoAlgorithmSettings {
    * @param stepsBeforeRemDups
    *          number of steps before removing duplicates
    */
-  public EvoAlgorithmSettings(final int poolSize, final int elitistSize,
-      final int crossoverSize, final float mutationRate,
-      final int stepsBeforeRemDups) {
+  public EvoAlgorithmSettings(final int poolSize, final int elitistSize, final int crossoverSize,
+      final float mutationRate, final int stepsBeforeRemDups) {
 
     this.poolSize = poolSize;
     this.mutationRate = mutationRate;
@@ -257,7 +254,7 @@ public class EvoAlgorithmSettings {
 
   /**
    * Gets the crossover size, the number of crossover operations that happen.
-   * 
+   *
    * @return the crossover size
    */
   public int getCrossoverSize() {
@@ -266,7 +263,7 @@ public class EvoAlgorithmSettings {
 
   /**
    * Gets the elite size, the number of best solutions that are saved each generation.
-   * 
+   *
    * @return the elite size
    */
   public int getElitismSize() {
@@ -275,7 +272,7 @@ public class EvoAlgorithmSettings {
 
   /**
    * Gets the mutation rate, the probability of mutation.
-   * 
+   *
    * @return the mutation rate
    */
   public float getMutationRate() {
@@ -284,7 +281,7 @@ public class EvoAlgorithmSettings {
 
   /**
    * Gets the populations size.
-   * 
+   *
    * @return the population size
    */
   public int getPoolSize() {
@@ -293,7 +290,7 @@ public class EvoAlgorithmSettings {
 
   /**
    * Gets the steps before removing duplicates.
-   * 
+   *
    * @return the steps before removing duplicates.
    */
   public int getStepsBeforeRemDups() {

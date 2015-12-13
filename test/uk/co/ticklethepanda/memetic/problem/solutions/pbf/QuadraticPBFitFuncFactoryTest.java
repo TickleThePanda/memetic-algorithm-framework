@@ -11,28 +11,25 @@ import org.junit.Test;
 
 import uk.co.ticklethepanda.memetic.problem.generators.pbf.PbFunctionGenerator;
 import uk.co.ticklethepanda.memetic.problem.generators.pbf.QuadraticPbFunctionGenerator;
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PseudoBooleanTerm;
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PsuedoBooleanFunction;
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PsuedoBooleanIndeterminant;
 
 public class QuadraticPBFitFuncFactoryTest {
+
+  private static Random random;
 
   @BeforeClass
   public static void SetUpRandom() {
     random = new Random();
   }
 
-  private static Random random;
-
   @Test(expected = IllegalArgumentException.class)
   public void Constructor1_SizeTooSmall_ExceptionThrown() {
-    int smallSize = 1;
+    final int smallSize = 1;
     new QuadraticPbFunctionGenerator(smallSize);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void Constructor2_SizeTooSmall_ExceptionThrown() {
-    int smallSize = 1;
+    final int smallSize = 1;
     new QuadraticPbFunctionGenerator(0, smallSize);
   }
 
@@ -47,8 +44,7 @@ public class QuadraticPBFitFuncFactoryTest {
 
   private ArrayList<PsuedoBooleanIndeterminant> getBooleanOperatorList(
       final PsuedoBooleanFunction pbff) {
-    final ArrayList<PsuedoBooleanIndeterminant> bos =
-        new ArrayList<PsuedoBooleanIndeterminant>();
+    final ArrayList<PsuedoBooleanIndeterminant> bos = new ArrayList<PsuedoBooleanIndeterminant>();
 
     for (int i = 0; i < pbff.size(); i++) {
       final PseudoBooleanTerm operation = pbff.getTerm(i);
@@ -88,9 +84,8 @@ public class QuadraticPBFitFuncFactoryTest {
     for (int i = 0; i < 100; i++) {
       final int maxRandomSize = 10;
       final int minRandomSize = 2;
-      final int size =
-          random.nextInt(maxRandomSize - minRandomSize) + minRandomSize; // should be
-                                                                         // random
+      final int size = random.nextInt(maxRandomSize - minRandomSize) + minRandomSize; // should be
+                                                                                      // random
       final int seed = random.nextInt();
       final PbFunctionGenerator qpff = new QuadraticPbFunctionGenerator(seed, size);
 
@@ -151,9 +146,8 @@ public class QuadraticPBFitFuncFactoryTest {
   public void TestGenerateProblem_RandomSeedSizeRandom_HasAllLocs() {
     final int maxRandomSize = 10;
     final int minRandomSize = 2;
-    final int size =
-        random.nextInt(maxRandomSize - minRandomSize) + minRandomSize; // should be
-                                                                       // random
+    final int size = random.nextInt(maxRandomSize - minRandomSize) + minRandomSize; // should be
+                                                                                    // random
     final int seed = random.nextInt();
     final PbFunctionGenerator qpff = new QuadraticPbFunctionGenerator(seed, size);
 

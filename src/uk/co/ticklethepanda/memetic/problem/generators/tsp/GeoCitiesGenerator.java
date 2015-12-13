@@ -1,18 +1,18 @@
 package uk.co.ticklethepanda.memetic.problem.generators.tsp;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import uk.co.ticklethepanda.memetic.problem.generators.ProblemGenerator;
 import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Cities;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Tour;
 import uk.co.ticklethepanda.memetic.problem.solutions.tsp.City.Geo;
+import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Tour;
 
 /**
  * Generates random Symmetric EUCLID_TSP.
  *
  */
-public class GeoCitiesGenerator implements
-    ProblemGenerator<Tour, Cities<Geo>> {
+public class GeoCitiesGenerator implements ProblemGenerator<Tour, Cities<Geo>> {
 
   /**
    * The maximum value that a city's x or y coordinate could have.
@@ -29,9 +29,9 @@ public class GeoCitiesGenerator implements
   private final int size;
 
   /**
-   * Creates a EuclidTspFunctionFactory with the size, uses <code>System.nanoTime()</code> for
-   * the seed.
-   * 
+   * Creates a EuclidTspFunctionFactory with the size, uses <code>System.nanoTime()</code> for the
+   * seed.
+   *
    * @param size
    *          the size of the functions that the factory will generate
    */
@@ -41,7 +41,7 @@ public class GeoCitiesGenerator implements
 
   /**
    * Creates a EuclidTspFunctionFactory with the size and the seed.
-   * 
+   *
    * @param seed
    *          the seed that will be used to generate the algorithm
    * @param size
@@ -57,12 +57,10 @@ public class GeoCitiesGenerator implements
     final Geo[] cities = new Geo[size];
 
     for (int i = 0; i < cities.length; i++) {
-      cities[i] =
-          new Geo((double)random.nextInt(MAX_CITY_VALUES),(double)
-              random.nextInt(MAX_CITY_VALUES));
+      cities[i] = new Geo(random.nextInt(MAX_CITY_VALUES), random.nextInt(MAX_CITY_VALUES));
     }
 
-    return new Cities<Geo>(cities);
+    return new Cities<Geo>(Arrays.asList(cities));
   }
 
 }

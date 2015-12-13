@@ -8,17 +8,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.co.ticklethepanda.memetic.problem.generators.pbf.LinearPbFunctionGenerator;
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PseudoBooleanTerm;
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PsuedoBooleanFunction;
 
 public class LinearPBFitFuncFactoryTest {
+
+  private static Random random;
 
   @BeforeClass
   public static void setUpBeforeClass() {
     random = new Random();
   }
-
-  private static Random random;
 
   @Test(expected = IllegalArgumentException.class)
   public void LinearPbFuncctionFactory_size0_ErrorThrown() {
@@ -34,8 +32,7 @@ public class LinearPBFitFuncFactoryTest {
   public void TestGenerateProblem_RandomSeed_CorrectSequence() {
     final int size = 10;
     final long seed = random.nextLong();
-    final LinearPbFunctionGenerator sbProbFact =
-        new LinearPbFunctionGenerator(seed, size);
+    final LinearPbFunctionGenerator sbProbFact = new LinearPbFunctionGenerator(seed, size);
     final PsuedoBooleanFunction sbProb = sbProbFact.generateFunction();
 
     final Random testRandom = new Random(seed);
@@ -48,8 +45,7 @@ public class LinearPBFitFuncFactoryTest {
   @Test
   public void TestGenerateProblem_RandomSize_CorrectOperationValues() {
     final int size = random.nextInt(5) + 2;
-    final LinearPbFunctionGenerator sbProbFact =
-        new LinearPbFunctionGenerator(size);
+    final LinearPbFunctionGenerator sbProbFact = new LinearPbFunctionGenerator(size);
     final PsuedoBooleanFunction sbProb = sbProbFact.generateFunction();
 
     int usedValues = 0;
@@ -67,8 +63,7 @@ public class LinearPBFitFuncFactoryTest {
   public void TestGenerateProblem_Seed0_CorrectSequence() {
     final int size = 10;
     final long seed = 0;
-    final LinearPbFunctionGenerator sbProbFact =
-        new LinearPbFunctionGenerator(seed, size);
+    final LinearPbFunctionGenerator sbProbFact = new LinearPbFunctionGenerator(seed, size);
     final PsuedoBooleanFunction sbProb = sbProbFact.generateFunction();
 
     final Random testRandom = new Random(seed);
@@ -81,8 +76,7 @@ public class LinearPBFitFuncFactoryTest {
   @Test
   public void TestGenerateProblem_size5_CorrectOperationValues() {
     final int size = 5;
-    final LinearPbFunctionGenerator sbProbFact =
-        new LinearPbFunctionGenerator(size);
+    final LinearPbFunctionGenerator sbProbFact = new LinearPbFunctionGenerator(size);
     final PsuedoBooleanFunction sbProb = sbProbFact.generateFunction();
 
     int usedValues = 0;

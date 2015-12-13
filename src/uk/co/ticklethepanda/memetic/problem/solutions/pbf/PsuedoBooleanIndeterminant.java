@@ -24,7 +24,7 @@ public class PsuedoBooleanIndeterminant {
 
   /**
    * Creates a new Operation with the index and the expected boolean value.
-   * 
+   *
    * @param index
    *          the index of the bit
    * @param expectedValue
@@ -57,8 +57,17 @@ public class PsuedoBooleanIndeterminant {
   }
 
   /**
+   * Gets the expected value of the boolean.
+   *
+   * @return the expected value of the boolean
+   */
+  public boolean getExpectedValue() {
+    return expectedValue;
+  }
+
+  /**
    * Gets the index of the boolean expected in the bit string.
-   * 
+   *
    * @return the index of the boolean expected in the bit string
    */
   public int getIndex() {
@@ -72,15 +81,6 @@ public class PsuedoBooleanIndeterminant {
     result = prime * result + (expectedValue ? PRIME_ONE : PRIME_TWO);
     result = prime * result + index;
     return result;
-  }
-
-  /**
-   * Gets the expected value of the boolean.
-   * 
-   * @return the expected value of the boolean
-   */
-  public boolean getExpectedValue() {
-    return expectedValue;
   }
 
   @Override

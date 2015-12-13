@@ -1,57 +1,68 @@
 package uk.co.ticklethepanda.memetic.problem.solutions.tsp;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import uk.co.ticklethepanda.memetic.gui.ProblemType;
 import uk.co.ticklethepanda.memetic.problem.Problem;
 
 public class Cities<E extends City<E>> implements Problem<Tour>, Iterable<E> {
   /**
-   * Calculated distances for the problem.
+   * Calculated distance matrix for the problem.
    */
-  private final int[][] cd;
+  private final int[][] cityDistanceMatrix;
 
   /**
    * The cities used for the problem.
    */
-  private final E[] cities;
+  private final List<E> cities;
 
   /**
-   * The maximum distance between two cities. Gives a fitness value.
+   * The maximum distance between any two cities. This is used to calculate a fitness value.
    */
   private final int maximumDistance;
 
+  /**
+   * The name given to the problem.
+   */
   private final String problemName;
 
   /**
    * Creates a symmetric EUCLID_TSP using the cities and using the default cache value.
-   * 
+   *
    * @param cities
    *          the cities to use for the problem
    */
-  public Cities(final E[] cities) {
+  public Cities(final List<E> cities) {
     this(cities, null);
   }
 
   /**
    * Creates a symmetric EUCLID_TSP using the cities and using the default cache value.
-   * 
+   *
    * @param points
    *          the cities to use for the problem
+   * @param name
+   *          the name given to the problem
    */
-  public Cities(final E[] points, String problemName) {
-    this.cities = points.clone();
-    maximumDistance = calculateMaximumDistance(points);
-    cd = new int[points.length][points.length];
+  public Cities(final List<E> points, final String problemName) {
+    this.cities = new ArrayList<E>(points);
+    this.maximumDistance = calculateMaximumDistance(points);
+    this.cityDistanceMatrix = new int[points.size()][points.size()];
     this.problemName = problemName;
   }
 
-  private int calculateMaximumDistance(final E[] cities) {
+  @Override
+  public int actualValue(final Tour solution) {
+    return calculateFitness(solution);
+  }
+
+  private int calculateMaximumDistance(final List<E> cities) {
     int maxDist = 0;
-    for (int i = 0; i < cities.length; i++) {
-      for (int j = i + 1; j < cities.length; j++) {
-        final int dist = (int) Math.round(cities[i].distance(cities[j]));
+    for (int i = 0; i < cities.size(); i++) {
+      for (int j = i + 1; j < cities.size(); j++) {
+        final int dist = Math.round(cities.get(i).distance(cities.get(j)));
         if (maxDist < dist) {
           maxDist = dist;
         }
@@ -60,35 +71,23 @@ public class Cities<E extends City<E>> implements Problem<Tour>, Iterable<E> {
     return maxDist;
   }
 
-  @Override
-  public int actualValue(final Tour solution) {
-    return calculateValue(solution);
-  }
-
   /**
    * Calculates the actual fitness of the solution.
-   * 
+   *
    * @param solution
    *          the solution to calculate the value for
    * @return the fitness of the solution
    */
-  private int calculateValue(final Tour solution) {
+  private int calculateFitness(final Tour solution) {
     int sum = 0;
 
     for (int i = 0; i < solution.size(); i++) {
-      final int cityIndexA = solution.get(i);
-      final int cityIndexB = solution.get((i + 1) % solution.size());
-      int dist = 0;
-      if (cd[cityIndexA][cityIndexB] != 0) {
-        dist = cd[cityIndexA][cityIndexB];
-      } else {
-        final E cityA = cities[cityIndexA];
-        final E cityB = cities[cityIndexB];
-        dist = cityA.distance(cityB);
-        cd[cityIndexA][cityIndexB] = dist;
-      }
-      sum += dist;
+      final int firstCity = solution.get(i);
+      final int secondCity = solution.get((i + 1) % solution.size());
+      
+      sum += getDistanceBetweenCities(firstCity, secondCity);
     }
+    
     return sum;
   }
 
@@ -97,9 +96,11 @@ public class Cities<E extends City<E>> implements Problem<Tour>, Iterable<E> {
     return new Cities<E>(this.cities, problemName);
   }
 
-  @Override
-  public Cities<E> copy(boolean cacheEnabled) {
-    return new Cities<E>(this.cities, problemName);
+  public int getDistanceBetweenCities(final int firstCity, final int secondCity) {
+    if (cityDistanceMatrix[firstCity][secondCity] == 0) {
+      cityDistanceMatrix[firstCity][secondCity] = cities.get(firstCity).distance(cities.get(secondCity));
+    }
+    return cityDistanceMatrix[firstCity][secondCity];
   }
 
   @Override
@@ -113,8 +114,13 @@ public class Cities<E extends City<E>> implements Problem<Tour>, Iterable<E> {
     if (this.getClass() != obj.getClass()) {
       return false;
     }
-    final Cities<E> other = (Cities<E>) obj;
-    if (!Arrays.equals(cities, other.cities)) {
+    if (obj instanceof Cities) {
+      @SuppressWarnings("unchecked")
+      final Cities<E> other = (Cities<E>) obj;
+      if (!cities.equals(other.cities)) {
+        return false;
+      }
+    } else {
       return false;
     }
     return true;
@@ -122,34 +128,11 @@ public class Cities<E extends City<E>> implements Problem<Tour>, Iterable<E> {
 
   @Override
   public int evaluateFitness(final Tour tour) {
-    return maximumDistance * cities.length - actualValue(tour);
+    return maximumDistance * cities.size() - actualValue(tour);
   }
 
   public E getCity(final int index) {
-    return cities[index];
-  }
-
-  @Override
-  public ProblemType getProblemType() {
-    return ProblemType.EUCLID_TSP;
-  }
-
-  @Override
-  public boolean hasCache() {
-    return false;
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + Arrays.hashCode(cities);
-    return result;
-  }
-
-  @Override
-  public int size() {
-    return cities.length;
+    return cities.get(index);
   }
 
   @Override
@@ -160,27 +143,26 @@ public class Cities<E extends City<E>> implements Problem<Tour>, Iterable<E> {
     return problemName;
   }
 
-  public int distance(int currCity, int newCity) {
-    if (cd[currCity][newCity] == 0) {
-      cd[currCity][newCity] = cities[currCity].distance(cities[newCity]);
-    }
-    return cd[currCity][newCity];
+  @Override
+  public ProblemType getProblemType() {
+    return ProblemType.EUCLID_TSP;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + cities.hashCode();
+    return result;
   }
 
   @Override
   public Iterator<E> iterator() {
-    return new Iterator<E>() {
-      int i = 0;
+    return cities.iterator();
+  }
 
-      @Override
-      public E next() {
-        return getCity(i++);
-      }
-
-      @Override
-      public boolean hasNext() {
-        return i < size();
-      }
-    };
+  @Override
+  public int size() {
+    return cities.size();
   }
 }

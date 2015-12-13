@@ -20,10 +20,10 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
+import com.google.common.primitives.Longs;
+
 import uk.co.ticklethepanda.memetic.gui.ProblemType;
 import uk.co.ticklethepanda.memetic.gui.helpers.AlgorithmType;
-
-import com.google.common.primitives.Longs;
 
 public class SettingsDialog extends JDialog {
 
@@ -53,8 +53,8 @@ public class SettingsDialog extends JDialog {
     initialize();
   }
 
-  public void addAdditionalSettingsDefaultListener(ActionListener al) {
-    this.additionalSettings.addDefaultSettingsListener(al);
+  public void addAdditionalSettingsDefaultListener(final ActionListener al) {
+    additionalSettings.addDefaultSettingsListener(al);
   }
 
   public void addAlgorithmChangeListener(final ActionListener listener) {
@@ -86,11 +86,12 @@ public class SettingsDialog extends JDialog {
   }
 
   public long getProblemSeed() {
-    Long problemSeed = Longs.tryParse(seedTxt.getText());
-    if (problemSeed == null)
+    final Long problemSeed = Longs.tryParse(seedTxt.getText());
+    if (problemSeed == null) {
       return 0;
-    else
+    } else {
       return problemSeed;
+    }
   }
 
   public int getProblemSize() {
@@ -118,13 +119,10 @@ public class SettingsDialog extends JDialog {
     panel.add(panel_1, BorderLayout.NORTH);
     final GridBagLayout gbl_panel_1 = new GridBagLayout();
     gbl_panel_1.columnWidths = new int[] { 29, 0, 0, 0, 0, 0 };
-    gbl_panel_1.rowHeights =
-        new int[] { 29, 29, 29, 29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    gbl_panel_1.columnWeights =
-        new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
-    gbl_panel_1.rowWeights =
-        new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-            1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+    gbl_panel_1.rowHeights = new int[] { 29, 29, 29, 29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    gbl_panel_1.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+    gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+        1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
     panel_1.setLayout(gbl_panel_1);
 
     label = new JLabel("Algorithm Type:");
@@ -136,8 +134,7 @@ public class SettingsDialog extends JDialog {
     panel_1.add(label, gbc_label);
 
     algorithmTypeCombo = new JComboBox<AlgorithmType>();
-    algorithmTypeCombo.setModel(new DefaultComboBoxModel<AlgorithmType>(
-        AlgorithmType.values()));
+    algorithmTypeCombo.setModel(new DefaultComboBoxModel<AlgorithmType>(AlgorithmType.values()));
     final GridBagConstraints gbc_algorithmTypeCombo = new GridBagConstraints();
     gbc_algorithmTypeCombo.fill = GridBagConstraints.HORIZONTAL;
     gbc_algorithmTypeCombo.insets = new Insets(0, 0, 5, 5);
@@ -201,7 +198,7 @@ public class SettingsDialog extends JDialog {
     seedTxt = new JTextField();
     seedTxt.setEnabled(false);
     seedTxt.setBackground(Color.LIGHT_GRAY);
-    GridBagConstraints gbc_textField = new GridBagConstraints();
+    final GridBagConstraints gbc_textField = new GridBagConstraints();
     gbc_textField.insets = new Insets(0, 0, 5, 5);
     gbc_textField.fill = GridBagConstraints.HORIZONTAL;
     gbc_textField.gridx = 2;
@@ -219,15 +216,14 @@ public class SettingsDialog extends JDialog {
         seedTxt.setBackground(Color.LIGHT_GRAY);
       }
     });
-    GridBagConstraints gbc_chckbxUseSeed = new GridBagConstraints();
+    final GridBagConstraints gbc_chckbxUseSeed = new GridBagConstraints();
     gbc_chckbxUseSeed.insets = new Insets(0, 0, 5, 5);
     gbc_chckbxUseSeed.gridx = 3;
     gbc_chckbxUseSeed.gridy = 4;
     panel_1.add(chckbxUseSeed, gbc_chckbxUseSeed);
 
     startAlgorithmButton = new JButton("Start Algorithm");
-    final GridBagConstraints gbc_startAlgorithmButton =
-        new GridBagConstraints();
+    final GridBagConstraints gbc_startAlgorithmButton = new GridBagConstraints();
     gbc_startAlgorithmButton.fill = GridBagConstraints.VERTICAL;
     gbc_startAlgorithmButton.anchor = GridBagConstraints.EAST;
     gbc_startAlgorithmButton.insets = new Insets(0, 0, 5, 5);
@@ -235,51 +231,50 @@ public class SettingsDialog extends JDialog {
     gbc_startAlgorithmButton.gridy = 13;
     panel_1.add(startAlgorithmButton, gbc_startAlgorithmButton);
 
-    this.additionalSettings = new AdditionalSettingsDialog(this);
+    additionalSettings = new AdditionalSettingsDialog(this);
 
     this.setModalityType(ModalityType.APPLICATION_MODAL);
 
     this.pack();
   }
 
-  public void setAlgorithmType(AlgorithmType algorithmType) {
+  public void setAlgorithmType(final AlgorithmType algorithmType) {
     algorithmTypeCombo.setSelectedItem(algorithmType);
 
   }
 
-  public void setCrossoverSize(int crossoverSize) {
+  public void setCrossoverSize(final int crossoverSize) {
     additionalSettings.setCrossoverSize(crossoverSize);
 
   }
 
-  public void setEliteSize(int eliteSize) {
+  public void setEliteSize(final int eliteSize) {
     additionalSettings.setEliteSize(eliteSize);
   }
 
-  public void setMutationRate(float mutRate) {
+  public void setMutationRate(final float mutRate) {
     additionalSettings.setMutRate(mutRate);
     ;
   }
 
-  public void setPoolSize(int popSize) {
+  public void setPoolSize(final int popSize) {
     additionalSettings.setPopSize(popSize);
   }
 
-  public void setProblemSeed(long problemSeed) {
+  public void setProblemSeed(final long problemSeed) {
     seedTxt.setText(String.valueOf(problemSeed));
   }
 
-  public void setProblemType(ProblemType problemType) {
+  public void setProblemType(final ProblemType problemType) {
     problemTypeCombo.setSelectedItem(problemType);
 
   }
 
   public void setProblemTypes(final ProblemType[] problemType) {
-    problemTypeCombo
-        .setModel(new DefaultComboBoxModel<ProblemType>(problemType));
+    problemTypeCombo.setModel(new DefaultComboBoxModel<ProblemType>(problemType));
   }
 
-  public void setUseSeed(boolean useProblemSeed) {
+  public void setUseSeed(final boolean useProblemSeed) {
     chckbxUseSeed.setSelected(useProblemSeed);
   }
 }

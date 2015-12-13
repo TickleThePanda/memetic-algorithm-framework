@@ -8,19 +8,14 @@ import java.util.Random;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.BitString;
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PseudoBooleanTerm;
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PsuedoBooleanFunction;
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PsuedoBooleanIndeterminant;
-
 public class PbFitFuncTest {
+
+  private static Random random;
 
   @BeforeClass
   public static void setUpBeforeTest() {
     random = new Random();
   }
-
-  private static Random random;
 
   @Test
   public void Equals_DifferentType_False() {
@@ -31,10 +26,8 @@ public class PbFitFuncTest {
     for (int i = 0; i < numberOperations; i++) {
       final int modifier = random.nextInt(maxModifier);
       final int location = 0;
-      spboList[i] =
-          new PseudoBooleanTerm(modifier,
-              new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location,
-                  false) });
+      spboList[i] = new PseudoBooleanTerm(modifier,
+          new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location, false) });
     }
 
     final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(spboList);
@@ -51,10 +44,8 @@ public class PbFitFuncTest {
     for (int i = 0; i < numberOperations; i++) {
       final int modifier = random.nextInt(maxModifier);
       final int location = 0;
-      spboList[i] =
-          new PseudoBooleanTerm(modifier,
-              new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location,
-                  false) });
+      spboList[i] = new PseudoBooleanTerm(modifier,
+          new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location, false) });
     }
 
     final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(spboList);
@@ -72,10 +63,8 @@ public class PbFitFuncTest {
     for (int i = 0; i < numberOperations; i++) {
       final int modifier = random.nextInt(maxModifier);
       final int location = 0;
-      spboList[i] =
-          new PseudoBooleanTerm(modifier,
-              new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location,
-                  false) });
+      spboList[i] = new PseudoBooleanTerm(modifier,
+          new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location, false) });
     }
 
     final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(spboList);
@@ -92,10 +81,8 @@ public class PbFitFuncTest {
     for (int i = 0; i < numberOperations; i++) {
       final int modifier = random.nextInt(maxModifier);
       final int location = 0;
-      spboList[i] =
-          new PseudoBooleanTerm(modifier,
-              new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location,
-                  false) });
+      spboList[i] = new PseudoBooleanTerm(modifier,
+          new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location, false) });
     }
 
     final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(spboList);
@@ -112,10 +99,8 @@ public class PbFitFuncTest {
     for (int i = 0; i < numberOperations; i++) {
       final int modifier = random.nextInt(maxModifier);
       final int location = 0;
-      spboList[i] =
-          new PseudoBooleanTerm(modifier,
-              new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location,
-                  false) });
+      spboList[i] = new PseudoBooleanTerm(modifier,
+          new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location, false) });
     }
 
     final int numberOperations2 = 5;
@@ -125,10 +110,8 @@ public class PbFitFuncTest {
     for (int i = 0; i < numberOperations2; i++) {
       final int modifier2 = random.nextInt(maxModifier2);
       final int location2 = 0;
-      spboList2[i] =
-          new PseudoBooleanTerm(modifier2,
-              new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location2,
-                  false) });
+      spboList2[i] = new PseudoBooleanTerm(modifier2,
+          new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location2, false) });
     }
 
     final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(spboList);
@@ -140,16 +123,14 @@ public class PbFitFuncTest {
   @Test
   public void TestEvaluateFitness_2operations_CorrectFitness() {
     final int answer = 3;
-    final PseudoBooleanTerm spbo1 =
-        new PseudoBooleanTerm(1, new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(1,
-            false) });
-    final PseudoBooleanTerm spbo2 =
-        new PseudoBooleanTerm(2, new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(1,
-            false) });
+    final PseudoBooleanTerm spbo1 = new PseudoBooleanTerm(1,
+        new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(1, false) });
+    final PseudoBooleanTerm spbo2 = new PseudoBooleanTerm(2,
+        new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(1, false) });
 
-    final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(new PseudoBooleanTerm[] { spbo1, spbo2 });
-    assertEquals(answer, spbp.evaluateFitness(new BitString(new boolean[] {
-        true, true }, spbp)));
+    final PsuedoBooleanFunction spbp =
+        new PsuedoBooleanFunction(new PseudoBooleanTerm[] { spbo1, spbo2 });
+    assertEquals(answer, spbp.evaluateFitness(new BitString(new boolean[] { true, true }, spbp)));
   }
 
   @Test
@@ -159,31 +140,27 @@ public class PbFitFuncTest {
     final int random1 = random.nextInt(maxModifier);
     final int random2 = random.nextInt(maxModifier);
     final int sum = random1 + random2;
-    final PseudoBooleanTerm spbo1 =
-        new PseudoBooleanTerm(random1,
-            new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(0, false) });
-    final PseudoBooleanTerm spbo2 =
-        new PseudoBooleanTerm(random2,
-            new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(1, false) });
+    final PseudoBooleanTerm spbo1 = new PseudoBooleanTerm(random1,
+        new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(0, false) });
+    final PseudoBooleanTerm spbo2 = new PseudoBooleanTerm(random2,
+        new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(1, false) });
 
-    final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(new PseudoBooleanTerm[] { spbo1, spbo2 });
-    assertEquals(sum, spbp.evaluateFitness(new BitString(new boolean[] { true,
-        true }, spbp)));
+    final PsuedoBooleanFunction spbp =
+        new PsuedoBooleanFunction(new PseudoBooleanTerm[] { spbo1, spbo2 });
+    assertEquals(sum, spbp.evaluateFitness(new BitString(new boolean[] { true, true }, spbp)));
   }
 
   @Test
   public void TestEvaluateFitness_CacheFalse2operations_CorrectFitness() {
     final int answer = 3;
-    final PseudoBooleanTerm spbo1 =
-        new PseudoBooleanTerm(1, new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(0,
-            false) });
-    final PseudoBooleanTerm spbo2 =
-        new PseudoBooleanTerm(2, new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(1,
-            false) });
+    final PseudoBooleanTerm spbo1 = new PseudoBooleanTerm(1,
+        new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(0, false) });
+    final PseudoBooleanTerm spbo2 = new PseudoBooleanTerm(2,
+        new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(1, false) });
 
-    final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(false, new PseudoBooleanTerm[] { spbo1, spbo2 });
-    assertEquals(answer, spbp.evaluateFitness(new BitString(new boolean[] {
-        true, true }, spbp)));
+    final PsuedoBooleanFunction spbp =
+        new PsuedoBooleanFunction(false, new PseudoBooleanTerm[] { spbo1, spbo2 });
+    assertEquals(answer, spbp.evaluateFitness(new BitString(new boolean[] { true, true }, spbp)));
   }
 
   @Test
@@ -193,16 +170,14 @@ public class PbFitFuncTest {
     final int random1 = random.nextInt(maxModifier);
     final int random2 = random.nextInt(maxModifier);
     final int sum = random1 + random2;
-    final PseudoBooleanTerm spbo1 =
-        new PseudoBooleanTerm(random1,
-            new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(0, false) });
-    final PseudoBooleanTerm spbo2 =
-        new PseudoBooleanTerm(random2,
-            new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(1, false) });
+    final PseudoBooleanTerm spbo1 = new PseudoBooleanTerm(random1,
+        new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(0, false) });
+    final PseudoBooleanTerm spbo2 = new PseudoBooleanTerm(random2,
+        new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(1, false) });
 
-    final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(false, new PseudoBooleanTerm[] { spbo1, spbo2 });
-    assertEquals(sum, spbp.evaluateFitness(new BitString(new boolean[] { true,
-        true }, spbp)));
+    final PsuedoBooleanFunction spbp =
+        new PsuedoBooleanFunction(false, new PseudoBooleanTerm[] { spbo1, spbo2 });
+    assertEquals(sum, spbp.evaluateFitness(new BitString(new boolean[] { true, true }, spbp)));
   }
 
   @Test
@@ -216,16 +191,13 @@ public class PbFitFuncTest {
     for (int i = 0; i < nOperations; i++) {
       final int modifier = random.nextInt(maxModifierSize);
       final int location = random.nextInt(solutionSize);
-      spboList[i] =
-          new PseudoBooleanTerm(modifier,
-              new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location,
-                  false) });
+      spboList[i] = new PseudoBooleanTerm(modifier,
+          new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location, false) });
     }
 
     final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(false, spboList);
 
-    final BitString pbs =
-        new BitString(PbTests.createRandomBoolArr(nOperations), spbp);
+    final BitString pbs = new BitString(PbTestHelper.createRandomBoolArr(nOperations), spbp);
 
     int sum = 0;
     for (final PseudoBooleanTerm element : spboList) {
@@ -246,16 +218,13 @@ public class PbFitFuncTest {
     for (int i = 0; i < nOperations; i++) {
       final int modifier = random.nextInt(maxModifierSize);
       final int location = random.nextInt(solutionSize);
-      spboList[i] =
-          new PseudoBooleanTerm(modifier,
-              new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location,
-                  false) });
+      spboList[i] = new PseudoBooleanTerm(modifier,
+          new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location, false) });
     }
 
     final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(spboList);
 
-    final BitString pbs =
-        new BitString(PbTests.createRandomBoolArr(nOperations), spbp);
+    final BitString pbs = new BitString(PbTestHelper.createRandomBoolArr(nOperations), spbp);
 
     int sum = 0;
     for (final PseudoBooleanTerm element : spboList) {
@@ -275,10 +244,8 @@ public class PbFitFuncTest {
     for (int i = 0; i < nOperations; i++) {
       final int modifier = random.nextInt(maxModifier);
       final int location = 0;
-      spboList[i] =
-          new PseudoBooleanTerm(modifier,
-              new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location,
-                  false) });
+      spboList[i] = new PseudoBooleanTerm(modifier,
+          new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location, false) });
     }
 
     final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(spboList);
@@ -295,10 +262,8 @@ public class PbFitFuncTest {
     for (int i = 0; i < numberOperations; i++) {
       final int modifier = random.nextInt(maxModifier);
       final int location = 0;
-      spboList[i] =
-          new PseudoBooleanTerm(modifier,
-              new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location,
-                  false) });
+      spboList[i] = new PseudoBooleanTerm(modifier,
+          new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(location, false) });
     }
 
     final PsuedoBooleanFunction spbp = new PsuedoBooleanFunction(spboList);

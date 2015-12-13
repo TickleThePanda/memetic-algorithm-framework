@@ -2,7 +2,6 @@ package uk.co.ticklethepanda.memetic.problem.solutions.tsp;
 
 import static org.junit.Assert.assertEquals;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,15 +10,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.co.ticklethepanda.memetic.problem.generators.tsp.EuclidianCitiesGenerator;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Cities;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Tour;
 import uk.co.ticklethepanda.memetic.problem.solutions.tsp.City.Euclidian;
 
 public class SolutionTest {
 
-  public static int[] generateTSPSolution(final int size) {
+  private final static Random random = new Random();
 
-    final int[] tspSolution = new int[size];
+  public static Integer[] generateTSPSolution(final int size) {
+
+    final Integer[] tspSolution = new Integer[size];
 
     final ArrayList<Integer> toChooseFrom = new ArrayList<Integer>();
     for (int i = 0; i < size; i++) {
@@ -38,8 +37,6 @@ public class SolutionTest {
   public static void setUpBeforeClass() throws Exception {
   }
 
-  private final static Random random = new Random();
-
   private Cities<Euclidian> function;
 
   @Before
@@ -51,27 +48,26 @@ public class SolutionTest {
   @Test
   public void testGet_randomSolution_correctValue() {
     final int size = 10;
-    final int[] tspArray = generateTSPSolution(size);
+    final Integer[] tspArray = generateTSPSolution(size);
     final Tour tsp = new Tour(tspArray, function);
 
     for (int i = 0; i < size; i++) {
-      assertEquals(tspArray[i], tsp.get(i));
+      assertEquals(tspArray[i].intValue(), tsp.get(i));
     }
   }
 
   @Test
   public void testGet_simpleSolution_correctValue() {
-    final int[] tspArray = { 0, 1, 2 };
+    final Integer[] tspArray = { 0, 1, 2 };
     final Tour tsp = new Tour(tspArray, function);
     for (int i = 0; i < tspArray.length; i++) {
-      assertEquals(tspArray[i], tsp.get(i));
+      assertEquals(tspArray[i].intValue(), tsp.get(i));
     }
   }
 
   @Test
   public void testGetActualValue_randomSolution_correctValue() {
-    final Cities<Euclidian> function =
-        new EuclidianCitiesGenerator(10).generateFunction();
+    final Cities<Euclidian> function = new EuclidianCitiesGenerator(10).generateFunction();
     final Tour solution = new Tour(generateTSPSolution(10), function);
 
     assertEquals(function.actualValue(solution), solution.getObjectiveValue());
@@ -79,8 +75,7 @@ public class SolutionTest {
 
   @Test
   public void testGetFitness_randomSolution_correctFitness() {
-    final Cities<Euclidian> function =
-        new EuclidianCitiesGenerator(10).generateFunction();
+    final Cities<Euclidian> function = new EuclidianCitiesGenerator(10).generateFunction();
     final Tour solution = new Tour(generateTSPSolution(10), function);
 
     assertEquals(function.evaluateFitness(solution), solution.getFitness());
@@ -88,8 +83,7 @@ public class SolutionTest {
 
   @Test
   public void testGetFitnessFunction_randomSolution_correctFitnessFunction() {
-    final Cities<Euclidian> function =
-        new EuclidianCitiesGenerator(10).generateFunction();
+    final Cities<Euclidian> function = new EuclidianCitiesGenerator(10).generateFunction();
     final Tour solution = new Tour(generateTSPSolution(10), function);
 
     assertEquals(function, solution.getFitnessFunction());
@@ -99,7 +93,7 @@ public class SolutionTest {
   public void testGetMutated_simpleSolutionSeed0_bitFlipped() {
     final int size = 3;
     final int seed = 0;
-    final int[] tspArray = new int[size];
+    final Integer[] tspArray = new Integer[size];
 
     for (int i = 0; i < tspArray.length; i++) {
       tspArray[i] = i;
@@ -112,7 +106,7 @@ public class SolutionTest {
     final int swap1 = random.nextInt(size);
     final int swap2 = random.nextInt(size);
 
-    final int[] tspArrayMutated = new int[size];
+    final Integer[] tspArrayMutated = new Integer[size];
 
     for (int i = 0; i < size; i++) {
       if (i == swap1) {
@@ -135,7 +129,7 @@ public class SolutionTest {
   @Test
   public void testSize_randomSolution_correctValue() {
     final int size = 10;
-    final int[] tspArray = generateTSPSolution(size);
+    final Integer[] tspArray = generateTSPSolution(size);
     final Tour tsp = new Tour(tspArray, function);
 
     assertEquals(size, tsp.size());
@@ -144,7 +138,7 @@ public class SolutionTest {
   @Test
   public void testSize_simpleSolution_correctValue() {
     final int size = 3;
-    final int[] tspArray = new int[] { 0, 1, 2 };
+    final Integer[] tspArray = new Integer[] { 0, 1, 2 };
     final Tour tsp = new Tour(tspArray, function);
     assertEquals(size, tsp.size());
   }

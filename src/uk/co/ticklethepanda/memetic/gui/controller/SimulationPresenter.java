@@ -3,8 +3,6 @@ package uk.co.ticklethepanda.memetic.gui.controller;
 import javax.swing.SwingUtilities;
 
 import uk.co.ticklethepanda.memetic.algorithms.Algorithm;
-import uk.co.ticklethepanda.memetic.gui.ProblemType;
-import uk.co.ticklethepanda.memetic.gui.helpers.AlgorithmType;
 import uk.co.ticklethepanda.memetic.gui.helpers.GenerationData;
 import uk.co.ticklethepanda.memetic.gui.helpers.GenerationListener;
 import uk.co.ticklethepanda.memetic.gui.helpers.SimulationModel;
@@ -43,14 +41,13 @@ public class SimulationPresenter<E extends Solution<E>> {
   /**
    * Creates a new simulation with the algorithm and solution view. The algorithm does not run
    * automatically and is started with <code>model.run</code>
-   * 
+   *
    * @param algorithm
    *          the algorithm to run
    * @param solutionView
    *          the view that will show the current solution
    */
-  public SimulationPresenter(final Algorithm<E> algorithm,
-      final SolutionView<E> solutionView) {
+  public SimulationPresenter(final Algorithm<E> algorithm, final SolutionView<E> solutionView) {
 
     this.view = new SimulationView<E>(solutionView);
 
@@ -61,7 +58,7 @@ public class SimulationPresenter<E extends Solution<E>> {
 
   /**
    * Gets the simulation model.
-   * 
+   *
    * @return the simulation model.
    */
   public SimulationModel<E> getModel() {
@@ -70,7 +67,7 @@ public class SimulationPresenter<E extends Solution<E>> {
 
   /**
    * Gets the simulation view.
-   * 
+   *
    * @return the simulation view.
    */
   public SimulationView<E> getView() {
@@ -79,13 +76,12 @@ public class SimulationPresenter<E extends Solution<E>> {
 
   /**
    * Sets the visability of the simulation view.
-   * 
+   *
    * @param bool
    *          whether the view is visible
    */
   public void setVisible(final boolean bool) {
-    SwingUtilities.invokeLater(() -> SwingUtilities.getRoot(view).setVisible(
-        true));
+    SwingUtilities.invokeLater(() -> SwingUtilities.getRoot(view).setVisible(true));
   }
 
   /**

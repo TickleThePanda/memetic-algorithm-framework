@@ -10,8 +10,13 @@ import uk.co.ticklethepanda.memetic.gui.controller.GuiController;
 public class Driver extends Applet {
 
   /**
+   * Serial Version UID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
    * Launches the main GUI.
-   * 
+   *
    * @param args
    *          There are no parameters expected.
    */
@@ -21,9 +26,4 @@ public class Driver extends Applet {
 
     controller.start();
   }
-
-  /**
-   * Serial Version UID.
-   */
-  private static final long serialVersionUID = 1L;
 }

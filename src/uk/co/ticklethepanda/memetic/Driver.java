@@ -12,21 +12,22 @@ import uk.co.ticklethepanda.memetic.gui.controller.GuiController;
 public class Driver extends JApplet {
 
   /**
+   * Serial Version UID.
+   */
+  private static final long serialVersionUID = 1L;
+
+  /**
    * Launches the main GUI.
-   * 
+   *
    * @param args
    *          There are no parameters expected.
-   * @throws InterruptedException 
-   * @throws InvocationTargetException 
+   * @throws InterruptedException
+   * @throws InvocationTargetException
    */
-  public static void main(final String[] args) throws InvocationTargetException, InterruptedException {
+  public static void main(final String[] args)
+      throws InvocationTargetException, InterruptedException {
 
     final GuiController controller = new GuiController();
     controller.start();
   }
-
-  /**
-   * Serial Version UID.
-   */
-  private static final long serialVersionUID = 1L;
 }

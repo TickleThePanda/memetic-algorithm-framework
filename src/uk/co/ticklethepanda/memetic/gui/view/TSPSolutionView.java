@@ -14,23 +14,23 @@ import uk.co.ticklethepanda.memetic.problem.solutions.tsp.City;
 import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Tour;
 
 public class TSPSolutionView extends SolutionView<Tour> {
-	/**
+  /**
    *
    */
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private static final int DEFAULT_SIZE = 500;
+  private static final int DEFAULT_SIZE = 500;
 
-	private static final float DEFAULT_CITY_SIZE = 2.5f / DEFAULT_SIZE; // px
+  private static final float DEFAULT_CITY_SIZE = 2.5f / DEFAULT_SIZE; // px
 
-	private Tour solution;
+  private Tour solution;
 
-	public TSPSolutionView() {
-		setPreferredSize(new Dimension(DEFAULT_SIZE, DEFAULT_SIZE));
-		solution = null;
-	}
+  public TSPSolutionView() {
+    setPreferredSize(new Dimension(DEFAULT_SIZE, DEFAULT_SIZE));
+    solution = null;
+  }
 
-	@Override
+  @Override
   public void paint(final Graphics g) {
     super.paint(g);
 
@@ -78,10 +78,10 @@ public class TSPSolutionView extends SolutionView<Tour> {
       final float scaleFactor = Math.min(scaleFactorX, scaleFactorY);
 
       for (int i = 0; i < solution.size(); i++) {
-    	  
+
         final double startx = (int) ff.getCity(solution.get(i)).getX();
         final double starty = (int) ff.getCity(solution.get(i)).getY();
-        
+
         final double endx = ff.getCity(solution.get((i + 1) % solution.size())).getX();
         final double endy = ff.getCity(solution.get((i + 1) % solution.size())).getY();
 
@@ -90,16 +90,15 @@ public class TSPSolutionView extends SolutionView<Tour> {
         final double drawEndx = endx * scaleFactor + xmargin / 2f;
         final double drawEndy = endy * scaleFactor + ymargin / 2f;
 
-        final Shape line =
-            new Line2D.Double(drawStartx, drawStarty, drawEndx, drawEndy);
+        final Shape line = new Line2D.Double(drawStartx, drawStarty, drawEndx, drawEndy);
         ((Graphics2D) g).draw(line);
       }
 
       g.setColor(Color.BLACK);
 
       for (final City<?> c : ff) {
-        double startx = c.getX();
-        double starty = c.getY();
+        final double startx = c.getX();
+        final double starty = c.getY();
 
         final double drawStartx = startx * scaleFactor + xmargin / 2f;
         final double drawStarty = starty * scaleFactor + ymargin / 2f;
@@ -108,18 +107,17 @@ public class TSPSolutionView extends SolutionView<Tour> {
 
         final double actualCitySize = DEFAULT_CITY_SIZE * size;
 
-        final Shape circle =
-            new Ellipse2D.Double(drawStartx - actualCitySize / 2f, drawStarty
-                - actualCitySize / 2f, actualCitySize, actualCitySize);
+        final Shape circle = new Ellipse2D.Double(drawStartx - actualCitySize / 2f,
+            drawStarty - actualCitySize / 2f, actualCitySize, actualCitySize);
         ((Graphics2D) g).fill(circle);
       }
     }
   }
 
-	@Override
-	public void setSolution(final Tour solution) {
-		this.solution = solution;
-		this.repaint();
-	}
+  @Override
+  public void setSolution(final Tour solution) {
+    this.solution = solution;
+    this.repaint();
+  }
 
 }

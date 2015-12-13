@@ -35,10 +35,8 @@ public class FlipBitLocalImprovement implements LocalImprovement<BitString> {
    * The cache to be used to improve the fitness of solutions.
    */
   LoadingCache<BitString, BitString> fitnessCache = CacheBuilder.newBuilder()
-      .maximumSize(DEFAULT_CACHE_SIZE)
-      .expireAfterAccess(DEFAULT_TIME_LIMIT, TimeUnit.SECONDS)
-      .concurrencyLevel(DEFAULT_CONCURRENCY_LEVEL)
-      .build(new CacheLoader<BitString, BitString>() {
+      .maximumSize(DEFAULT_CACHE_SIZE).expireAfterAccess(DEFAULT_TIME_LIMIT, TimeUnit.SECONDS)
+      .concurrencyLevel(DEFAULT_CONCURRENCY_LEVEL).build(new CacheLoader<BitString, BitString>() {
 
         @Override
         public BitString load(final BitString solution) throws Exception {
@@ -64,7 +62,7 @@ public class FlipBitLocalImprovement implements LocalImprovement<BitString> {
 
   /**
    * Creates a PbLocImprov using the local improvement type specified.
-   * 
+   *
    * @param type
    */
   public FlipBitLocalImprovement(final LocalImprovementExtent type) {
@@ -132,7 +130,7 @@ public class FlipBitLocalImprovement implements LocalImprovement<BitString> {
   @Override
   public BitString getSingleRandomImprovedSolution(final BitString original) {
 
-    int start = new Random().nextInt(original.size());
+    final int start = new Random().nextInt(original.size());
 
     for (int bitIndex = start; bitIndex < original.size(); bitIndex++) {
 

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import uk.co.ticklethepanda.memetic.algorithms.TspNnAlgorithm;
+import uk.co.ticklethepanda.memetic.algorithms.NearestNeighbourAlgorithm;
 import uk.co.ticklethepanda.memetic.gui.ProblemType;
 import uk.co.ticklethepanda.memetic.problem.Problem;
 import uk.co.ticklethepanda.memetic.problem.solutions.Solution;
@@ -15,7 +15,7 @@ import uk.co.ticklethepanda.memetic.problem.solutions.Solution;
  *
  */
 public class Tour implements Solution<Tour> {
-  
+
   /**
    * Defines a TspTourFactory that generates TspTours.
    */
@@ -32,8 +32,22 @@ public class Tour implements Solution<Tour> {
     private final boolean useNearestNeighbour;
 
     /**
+     * Creates a TspTourFactory with the seed <code>System.nanoTime()</code> and the function.
+     *
+     * @param function
+     *          the function that the solutions are being generated for
+     */
+    public Generator(final Cities<?> function) {
+      this(System.nanoTime(), function);
+    }
+
+    public Generator(final Cities<?> function, final boolean useNearestNeighbour) {
+      this(System.nanoTime(), function, useNearestNeighbour);
+    }
+
+    /**
      * Creates a TspTourFactory with the seed and the function.
-     * 
+     *
      * @param seed
      *          the seed used to generate the children and crossover
      * @param function
@@ -43,66 +57,27 @@ public class Tour implements Solution<Tour> {
       this(seed, function, true);
     }
 
-    /**
-     * Creates a TspTourFactory with the seed <code>System.nanoTime()</code> and the function.
-     * 
-     * @param function
-     *          the function that the solutions are being generated for
-     */
-    public Generator(final Cities<?> function) {
-      this(System.nanoTime(), function);
-    }
-
-    public Generator(Cities<?> function, boolean useNearestNeighbour) {
-      this(System.nanoTime(), function, useNearestNeighbour);
-    }
-
-    public Generator(final long seed, final Cities<?> function, boolean useNearestNeighbour) {
-      this.random = new Random(seed);
-      this.cities = function;
+    public Generator(final long seed, final Cities<?> function, final boolean useNearestNeighbour) {
+      random = new Random(seed);
+      cities = function;
       this.useNearestNeighbour = useNearestNeighbour;
     }
 
     @Override
-    public Tour crossover(final Tour parent1, final Tour parent2) {
-
-      final int[] child = new int[cities.size()];
+    public Tour crossover(final Tour mother, final Tour father) {
+      final List<Integer> child = new ArrayList<Integer>(mother.size());
 
       // crossover length
-      final int crossoverPoint1 = random.nextInt(cities.size() - 2);
-      final int crossoverPoint2 = crossoverPoint1 + random.nextInt(cities.size() - crossoverPoint1);
+      final int crossoverStart = random.nextInt(cities.size() - 2);
+      final int crossoverEnd = crossoverStart + random.nextInt(cities.size() - crossoverStart);
+      
+      child.addAll(mother.subTour(crossoverStart, crossoverEnd));
 
-      // find point at which parent2 has the same value as in parent1[0]
-      int startingLoc = 0;
-      for (int i = 0; i < parent2.size(); i++) {
-        if (parent2.get(i) == parent1.get(0)) {
-          startingLoc = i;
-          break;
+      for(int i = 0; i < father.size(); i++) {
+        final int city = father.get(i);
+        if (!child.contains(city)) {
+          child.add(city);
         }
-      }
-
-      final int diff = crossoverPoint2 - crossoverPoint1;
-
-      final List<Integer> visited = new ArrayList<Integer>();
-      // we want a list of cities that we have visited.
-      for (int i = 0; i < diff; i++) {
-        final int city = parent1.get(crossoverPoint1 + i);
-        visited.add(city);
-        child[i] = city;
-      }
-
-      int childIndex = diff;
-      int parentIndex = 0;
-      while (childIndex < child.length) {
-        final int realParentIndex =
-            (startingLoc + crossoverPoint2 + parentIndex + 1) % cities.size();
-        final int city = parent2.get(realParentIndex);
-
-        if (visited.contains(city) == false) {
-          child[childIndex++] = city;
-        }
-
-        parentIndex++;
       }
 
       return new Tour(child, cities);
@@ -110,23 +85,23 @@ public class Tour implements Solution<Tour> {
 
     /**
      * Generates a random solution.
-     * 
+     *
      * @return a random solution
      */
     public Tour generateRandomTour() {
-      final int[] cities = new int[this.cities.size()];
+      final List<Integer> newTour = new ArrayList<>(cities.size());
       for (int i = 0; i < this.cities.size(); i++) {
-        cities[i] = i;
+        newTour.add(i);
       }
 
       for (int i = 0; i < this.cities.size(); i++) {
-        int swapLoc = random.nextInt(this.cities.size());
-        int temp = cities[swapLoc];
-        cities[swapLoc] = cities[i];
-        cities[i] = temp;
+        final int swapLoc = random.nextInt(this.cities.size());
+        final Integer temp = newTour.get(swapLoc);
+        newTour.set(swapLoc, newTour.get(i));
+        newTour.set(i, temp);
       }
 
-      final Tour solution = new Tour(cities, this.cities);
+      final Tour solution = new Tour(newTour, this.cities);
       return solution;
     }
 
@@ -134,7 +109,7 @@ public class Tour implements Solution<Tour> {
     public Tour generateSolution() {
       Tour solution;
       if (useNearestNeighbour) {
-        solution = new TspNnAlgorithm(cities, random.nextInt(cities.size())).doAlgorithm();
+        solution = new NearestNeighbourAlgorithm(cities, random.nextInt(cities.size())).doAlgorithm();
       } else {
         solution = generateRandomTour();
       }
@@ -153,159 +128,181 @@ public class Tour implements Solution<Tour> {
 
   }
 
-	/**
-	 * The cached actual value.
-	 */
-	private int objectiveValue;
-	/**
-	 * The tour order.
-	 */
-	private final int[] tour;
-	/**
-	 * The cached fitness.
-	 */
-	private int fitness;
+  /**
+   * The cached actual value.
+   */
+  private int objectiveValue;
+  /**
+   * The tour order.
+   */
+  private final List<Integer> tour;
+  /**
+   * The cached fitness.
+   */
+  private int fitness;
 
-	/**
-	 * The function used to evaluate the fitness and objective values.
-	 */
-	private final Cities<?> cities;
+  /**
+   * The function used to evaluate the fitness and objective values.
+   */
+  private final Cities<?> cities;
 
-	/**
-	 * The hash value for the solution.
-	 */
-	private int hash;
-	/**
-	 * The RNG for generating mutations.
-	 */
-	private final Random random;
+  /**
+   * The hash value for the solution.
+   */
+  private int hash;
+  /**
+   * The RNG for generating mutations.
+   */
+  private final Random random;
 
-	/**
-	 * Creates the TspTour with the tour and the function, the seed is set as
-	 * <code>System.nanoTime()</code>.
-	 * 
-	 * @param tour
-	 *            the actual tour
-	 * @param function
-	 *            the function to evaluate the tour by
-	 */
-	public Tour(final int[] tour, final Cities<?> function) {
-		this(System.nanoTime(), tour, function);
+  /**
+   * Creates the TspTour with the tour and the function, the seed is set as
+   * <code>System.nanoTime()</code>.
+   * 
+   * @param tour
+   *          the actual tour
+   * @param function
+   *          the function to evaluate the tour by
+   */
+  @Deprecated
+  public Tour(final Integer[] tour, final Cities<?> function) {
+    this(System.nanoTime(), Arrays.asList(tour), function);
+  }
+  
+  /**
+   * Creates the TspTour with the tour and the function, the seed is set as
+   * <code>System.nanoTime()</code>.
+   * 
+   * @param tour
+   *          the actual tour
+   * @param function
+   *          the function to evaluate the tour by
+   */
+  public Tour(final List<Integer> tour, final Cities<?> function) {
+    this(System.nanoTime(), tour, function);
+  }
 
-	}
+  /**
+   * Creates the TspTour with the seed, the tour and the function.
+   * 
+   * @param seed
+   *          the seed for mutations to be generated with
+   * @param tour
+   *          the actual tour
+   * @param function
+   *          the function to evaluate the tour by
+   */
+  @Deprecated
+  public Tour(final long seed, final Integer[] tour, final Cities<?> function) {
+    this(seed, Arrays.asList(tour), function);
+  }
+  
+  /**
+   * Creates the TspTour with the seed, the tour and the function.
+   * 
+   * @param seed
+   *          the seed for mutations to be generated with
+   * @param tour
+   *          the actual tour
+   * @param function
+   *          the function to evaluate the tour by
+   */
+  public Tour(final long seed, final List<Integer> tour, final Cities<?> function) {
+    cities = function;
+    this.tour = tour;
 
-	/**
-	 * Creates the TspTour with the seed, the tour and the function.
-	 * 
-	 * @param seed
-	 *            the seed for mutations to be generated with
-	 * @param tour
-	 *            the actual tour
-	 * @param function
-	 *            the function to evaluate the tour by
-	 */
-	public Tour(final long seed, final int[] tour,
-			final Cities<?> function) {
-		this.cities = function;
-		this.tour = tour;
+    random = new Random(seed);
+  }
+  
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (this.getClass() != obj.getClass()) {
+      return false;
+    }
+    return this.cities.equals(((Tour) obj).cities);
+  }
 
-		random = new Random(seed);
-	}
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (this.getClass() != obj.getClass()) {
-			return false;
-		}
-		final Tour other = (Tour) obj;
-		if (!Arrays.equals(tour, other.tour)) {
-			return false;
-		}
-		return true;
-	}
+  /**
+   * Gets the specified "city index" the index.
+   * 
+   * @param index
+   *          the index of the city index
+   * @return the specified "city index" the index
+   */
+  public int get(final int index) {
+    return tour.get(index);
+  }
 
-	/**
-	 * Gets the specified "city index" the index.
-	 * 
-	 * @param index
-	 *            the index of the city index
-	 * @return the specified "city index" the index
-	 */
-	public int get(final int index) {
-		return tour[index];
-	}
+  @Override
+  public int getFitness() {
+    if (fitness == 0) {
+      fitness = cities.evaluateFitness(this);
+    }
+    return fitness;
+  }
 
-	@Override
-	public int getObjectiveValue() {
-		if (objectiveValue == 0) {
-			objectiveValue = cities.actualValue(this);
-		}
-		return objectiveValue;
-	}
+  @Override
+  public Cities<?> getFitnessFunction() {
+    return cities;
+  }
 
-	@Override
-	public int getFitness() {
-		if (fitness == 0) {
-			fitness = cities.evaluateFitness(this);
-		}
-		return fitness;
-	}
+  @Override
+  public Tour getMutated() {
+    final int swap1 = random.nextInt(tour.size());
+    final int swap2 = random.nextInt(tour.size());
 
-	@Override
-	public Tour getMutated() {
-		final int swap1 = random.nextInt(tour.length);
-		final int swap2 = random.nextInt(tour.length);
+    final List<Integer> mutatedTour = new ArrayList<Integer>(tour);
+    
+    Integer value1 = tour.get(swap1);
+    Integer value2 = tour.get(swap2);
+    
+    mutatedTour.set(swap2, value1);
+    mutatedTour.set(swap1, value2);
 
-		final int[] tspArrayMutated = new int[tour.length];
+    return new Tour(mutatedTour, cities);
+  }
 
-		for (int i = 0; i < tour.length; i++) {
-			if (i == swap1) {
-				tspArrayMutated[i] = tour[swap2];
-			} else if (i == swap2) {
-				tspArrayMutated[i] = tour[swap1];
-			} else {
-				tspArrayMutated[i] = tour[i];
-			}
-		}
+  @Override
+  public int getObjectiveValue() {
+    if (objectiveValue == 0) {
+      objectiveValue = cities.actualValue(this);
+    }
+    return objectiveValue;
+  }
 
-		return new Tour(tspArrayMutated, cities);
-	}
+  @Override
+  public int hashCode() {
+    if (hash != 0) {
+      return hash;
+    } else {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + tour.hashCode();
+      hash = result;
+      return result;
+    }
+  }
 
-	@Override
-	public int hashCode() {
-		if (hash != 0) {
-			return hash;
-		} else {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + Arrays.hashCode(tour);
-			hash = result;
-			return result;
-		}
-	}
+  @Override
+  public int size() {
+    return tour.size();
+  }
 
-	@Override
-	public int size() {
-		return tour.length;
-	}
+  public List<Integer> subTour(int crossoverStart, int crossoverEnd) {
+    return tour.subList(crossoverStart, crossoverEnd);
+  }
 
-	@Override
-	public String toString() {
-		final int maxLen = 3;
-		return "TSPSolution [array="
-				+ (tour != null ? Arrays.toString(Arrays.copyOf(tour,
-						Math.min(tour.length, maxLen))) : null) + "]";
-	}
-
-	@Override
-	public Cities<?> getFitnessFunction() {
-		return this.cities;
-	}
+  @Override
+  public String toString() {
+    return "TSPSolution [array=" + (tour != null
+        ? tour.toString() : null) + "]";
+  }
 
 }

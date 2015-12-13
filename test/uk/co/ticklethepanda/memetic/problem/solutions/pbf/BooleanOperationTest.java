@@ -8,16 +8,14 @@ import java.util.Random;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PsuedoBooleanIndeterminant;
-
 public class BooleanOperationTest {
+
+  static Random random;
 
   @BeforeClass
   public static void SetupBeforeClass() {
     random = new Random();
   }
-
-  static Random random;
 
   @Test
   public void TestGetLocation_Location5_CorrectLocation() {

@@ -4,7 +4,6 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 
@@ -20,11 +19,11 @@ class AdditionalSettingsDialog extends JDialog {
   private class PrevSettings {
     final int popSize;
     final float mutRate;
-    private int croSize;
+    private final int croSize;
 
     final int eliSize;
 
-    PrevSettings(int popSize, float mutRate, int eliSize, int croSize) {
+    PrevSettings(final int popSize, final float mutRate, final int eliSize, final int croSize) {
       this.popSize = popSize;
       this.mutRate = mutRate;
       this.eliSize = eliSize;
@@ -32,11 +31,11 @@ class AdditionalSettingsDialog extends JDialog {
     }
 
     public int getCroSize() {
-      return this.croSize;
+      return croSize;
     }
 
     public int getEliSize() {
-      return this.eliSize;
+      return eliSize;
     }
 
     public float getMutRate() {
@@ -49,7 +48,7 @@ class AdditionalSettingsDialog extends JDialog {
   }
 
   /**
-   * 
+   *
    */
   private static final long serialVersionUID = 3828672204122707099L;
 
@@ -67,59 +66,63 @@ class AdditionalSettingsDialog extends JDialog {
 
   private JButton submit;
   private JButton defaultBut;
-  private Component setupPanel;
+  private final Component setupPanel;
   PrevSettings ps;
   private JLabel lblCrossoverSize;
   private JTextField crsTxt;
 
-  public AdditionalSettingsDialog(JDialog setupPanel) {
+  public AdditionalSettingsDialog(final JDialog setupPanel) {
     super(setupPanel);
     this.setupPanel = setupPanel;
     initialize();
   }
 
-  public void addDefaultSettingsListener(ActionListener a) {
-    this.defaultBut.addActionListener(a);
+  public void addDefaultSettingsListener(final ActionListener a) {
+    defaultBut.addActionListener(a);
   }
 
-  public void addSubmitActionListener(ActionListener a) {
-    this.submit.addActionListener(a);
+  public void addSubmitActionListener(final ActionListener a) {
+    submit.addActionListener(a);
   }
 
   public int getCrossoverSize() {
-    Integer crsSize = Ints.tryParse(crsTxt.getText());
-    if (crsSize == null)
+    final Integer crsSize = Ints.tryParse(crsTxt.getText());
+    if (crsSize == null) {
       return 0;
-    else
+    } else {
       return crsSize;
+    }
   }
 
   public int getEliteSize() {
-    Integer eliSize = Ints.tryParse(eliTxt.getText());
-    if (eliSize == null)
+    final Integer eliSize = Ints.tryParse(eliTxt.getText());
+    if (eliSize == null) {
       return 0;
-    else
+    } else {
       return eliSize;
+    }
   }
 
   public float getMutRate() {
-    Integer mutSize = Ints.tryParse(mutTxt.getText());
-    if (mutSize == null)
+    final Integer mutSize = Ints.tryParse(mutTxt.getText());
+    if (mutSize == null) {
       return 0f;
-    else
+    } else {
       return mutSize;
+    }
   }
 
   /**
-   * 
+   *
    */
 
   public int getPopSize() {
-    Integer popSize = Ints.tryParse(polTxt.getText());
-    if (popSize == null)
+    final Integer popSize = Ints.tryParse(polTxt.getText());
+    if (popSize == null) {
       return 0;
-    else
+    } else {
       return popSize;
+    }
   }
 
   private void initialize() {
@@ -189,7 +192,7 @@ class AdditionalSettingsDialog extends JDialog {
     }
     // -----------------------------
     lblCrossoverSize = new JLabel("Crossover Size");
-    GridBagConstraints gbc_lblCrossoverSize = new GridBagConstraints();
+    final GridBagConstraints gbc_lblCrossoverSize = new GridBagConstraints();
     gbc_lblCrossoverSize.anchor = GridBagConstraints.EAST;
     gbc_lblCrossoverSize.insets = new Insets(0, 0, 5, 5);
     gbc_lblCrossoverSize.gridx = 1;
@@ -197,7 +200,7 @@ class AdditionalSettingsDialog extends JDialog {
     getContentPane().add(lblCrossoverSize, gbc_lblCrossoverSize);
     // -----------------------------
     crsTxt = new JTextField();
-    GridBagConstraints gbc_crsTxt = new GridBagConstraints();
+    final GridBagConstraints gbc_crsTxt = new GridBagConstraints();
     gbc_crsTxt.insets = new Insets(0, 0, 5, 5);
     gbc_crsTxt.fill = GridBagConstraints.HORIZONTAL;
     gbc_crsTxt.gridx = 2;
@@ -230,7 +233,7 @@ class AdditionalSettingsDialog extends JDialog {
       PrevSettings prevSettings = null;
 
       @Override
-      public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+      public void windowClosing(final java.awt.event.WindowEvent windowEvent) {
         if (prevSettings != null) {
           setPopSize(prevSettings.getPopSize());
           setMutRate(prevSettings.getMutRate());
@@ -238,37 +241,29 @@ class AdditionalSettingsDialog extends JDialog {
           setCrossoverSize(prevSettings.getCroSize());
         }
         prevSettings =
-            new PrevSettings(getPopSize(), getMutRate(), getEliteSize(),
-                getCrossoverSize());
+            new PrevSettings(getPopSize(), getMutRate(), getEliteSize(), getCrossoverSize());
       }
     });
 
-    this.submit.addActionListener(new ActionListener() {
-
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        AdditionalSettingsDialog.this.setVisible(false);
-      }
-
-    });
+    submit.addActionListener(e -> AdditionalSettingsDialog.this.setVisible(false));
 
     this.setModalityType(ModalityType.APPLICATION_MODAL);
     this.pack();
   }
 
-  public void setCrossoverSize(int crsSize) {
+  public void setCrossoverSize(final int crsSize) {
     crsTxt.setText(Integer.toString(crsSize));
   }
 
-  public void setEliteSize(int eliSize) {
+  public void setEliteSize(final int eliSize) {
     eliTxt.setText(Integer.toString(eliSize));
   }
 
-  public void setMutRate(float mutRate) {
+  public void setMutRate(final float mutRate) {
     mutTxt.setText(Float.toString(mutRate));
   }
 
-  public void setPopSize(int popSize) {
+  public void setPopSize(final int popSize) {
     polTxt.setText(Integer.toString(popSize));
   }
 }

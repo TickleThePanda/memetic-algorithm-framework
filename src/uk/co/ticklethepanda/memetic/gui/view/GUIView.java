@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
-import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class GUIView extends JPanel {
   /**
-   * 
+   *
    */
   private static final long serialVersionUID = -2789429155485125767L;
   private JMenuBar menuBar;
@@ -29,8 +29,7 @@ public class GUIView extends JPanel {
   private JMenuItem mntmExit;
   private JSeparator separator_2;
 
-  ArrayList<ActionListener> tabCloseButtonListener =
-      new ArrayList<ActionListener>();
+  ArrayList<ActionListener> tabCloseButtonListener = new ArrayList<ActionListener>();
 
   protected SimulationView<?> viewClosed;
 
@@ -38,29 +37,29 @@ public class GUIView extends JPanel {
     initialize();
   }
 
-  public void addNewActionListener(ActionListener actionListener) {
+  public void addNewActionListener(final ActionListener actionListener) {
     menuFile.addActionListener(actionListener);
   }
 
-  public void addNewSimulationView(SimulationView<?> component) {
+  public void addNewSimulationView(final SimulationView<?> component) {
     tabbedPane.addTab("new*", component);
     tabbedPane.setSelectedIndex(tabbedPane.indexOfComponent(component));
-    ButtonTabComponent btc = new ButtonTabComponent(tabbedPane);
+    final ButtonTabComponent btc = new ButtonTabComponent(tabbedPane);
     btc.addCloseButtonListener(e -> {
       GUIView.this.viewClosed = component;
-      for (ActionListener al : tabCloseButtonListener) {
+      for (final ActionListener al : tabCloseButtonListener) {
         al.actionPerformed(e);
       }
     });
     tabbedPane.setTabComponentAt(tabbedPane.getSelectedIndex(), btc);
   }
 
-  public void addTabClosedActionListener(ActionListener actionListener) {
+  public void addTabClosedActionListener(final ActionListener actionListener) {
     tabCloseButtonListener.add(actionListener);
   }
 
-  public void closeTab(SimulationView<?> view) {
-    int i = tabbedPane.indexOfComponent(view);
+  public void closeTab(final SimulationView<?> view) {
+    final int i = tabbedPane.indexOfComponent(view);
     if (i != -1) {
       tabbedPane.remove(i);
     }
@@ -71,8 +70,7 @@ public class GUIView extends JPanel {
   }
 
   public SimulationView<?> getCurrentlySelectedTab() {
-    return (SimulationView<?>) tabbedPane.getComponentAt(tabbedPane
-        .getSelectedIndex());
+    return (SimulationView<?>) tabbedPane.getComponentAt(tabbedPane.getSelectedIndex());
   }
 
   private void initialize() {
@@ -85,13 +83,11 @@ public class GUIView extends JPanel {
     menuBar.add(mn);
     // -----------------------------
     menuFile = new JMenuItem("New");
-    menuFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
-        InputEvent.CTRL_MASK));
+    menuFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
     mn.add(menuFile);
     // -----------------------------
     mntmClose = new JMenuItem("Close Tab");
-    mntmClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W,
-        InputEvent.CTRL_MASK));
+    mntmClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_MASK));
     mn.add(mntmClose);
     // -----------------------------
     separator_2 = new JSeparator();
@@ -99,15 +95,13 @@ public class GUIView extends JPanel {
     // -----------------------------
     mntmExit = new JMenuItem("Exit");
     mn.add(mntmExit);
-    mntmClose
-        .addActionListener(e -> {
-          tabbedPane.remove(tabbedPane.getComponentAt(tabbedPane
-              .getSelectedIndex()));
-        });
+    mntmClose.addActionListener(e -> {
+      tabbedPane.remove(tabbedPane.getComponentAt(tabbedPane.getSelectedIndex()));
+    });
     mntmExit.addActionListener(e -> {
       System.exit(0);
     });
-    tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+    tabbedPane = new JTabbedPane(SwingConstants.TOP);
     tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
     tabbedPane.setPreferredSize(new Dimension(800, 500));
     add(tabbedPane, BorderLayout.CENTER);

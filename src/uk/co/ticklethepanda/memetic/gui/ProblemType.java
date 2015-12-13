@@ -29,7 +29,7 @@ public enum ProblemType {
 
   /**
    * Creates a problem type with the name of the problem.
-   * 
+   *
    * @param string
    *          the name of the problem
    */

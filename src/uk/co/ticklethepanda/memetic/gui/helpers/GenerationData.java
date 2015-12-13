@@ -22,7 +22,7 @@ public class GenerationData<E extends Solution<E>> {
 
   /**
    * Creates a new GenerationData with the solution and total running time.
-   * 
+   *
    * @param solution
    *          the best solution from generation
    * @param totalRunningTime
@@ -35,7 +35,7 @@ public class GenerationData<E extends Solution<E>> {
 
   /**
    * Gets the best solution of the generation.
-   * 
+   *
    * @return the best solution of the generation
    */
   public E getBestSolution() {
@@ -44,7 +44,7 @@ public class GenerationData<E extends Solution<E>> {
 
   /**
    * Gets the total running time of the simulation.
-   * 
+   *
    * @return the total running time of the simulation
    */
   public long getTotalRunningTime() {

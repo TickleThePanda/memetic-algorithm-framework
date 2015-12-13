@@ -56,19 +56,14 @@ import javax.swing.plaf.basic.BasicButtonUI;
  * the tab it belongs to
  */
 public class ButtonTabComponent extends JPanel {
-  /**
-   * 
-   */
-  private static final long serialVersionUID = -5926342526584087950L;
-
   private class TabButton extends JButton {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -7748181068459497912L;
 
     public TabButton() {
-      int size = 17;
+      final int size = 17;
       setPreferredSize(new Dimension(size, size));
       setToolTipText("close this tab");
       // Make the button looks the same for all Laf's
@@ -86,9 +81,10 @@ public class ButtonTabComponent extends JPanel {
     }
 
     // paint the cross
-    protected void paintComponent(Graphics g) {
+    @Override
+    protected void paintComponent(final Graphics g) {
       super.paintComponent(g);
-      Graphics2D g2 = (Graphics2D) g.create();
+      final Graphics2D g2 = (Graphics2D) g.create();
       // shift the image for pressed buttons
       if (getModel().isPressed()) {
         g2.translate(1, 1);
@@ -98,30 +94,38 @@ public class ButtonTabComponent extends JPanel {
       if (getModel().isRollover()) {
         g2.setColor(Color.LIGHT_GRAY);
       }
-      int delta = 6;
+      final int delta = 6;
       g2.drawLine(delta, delta, getWidth() - delta - 1, getHeight() - delta - 1);
       g2.drawLine(getWidth() - delta - 1, delta, delta, getHeight() - delta - 1);
       g2.dispose();
     }
 
     // we don't want to update UI for this button
+    @Override
     public void updateUI() {
     }
   }
 
+  /**
+   *
+   */
+  private static final long serialVersionUID = -5926342526584087950L;
+
   private final static MouseListener buttonMouseListener = new MouseAdapter() {
-    public void mouseEntered(MouseEvent e) {
-      Component component = e.getComponent();
+    @Override
+    public void mouseEntered(final MouseEvent e) {
+      final Component component = e.getComponent();
       if (component instanceof AbstractButton) {
-        AbstractButton button = (AbstractButton) component;
+        final AbstractButton button = (AbstractButton) component;
         button.setBorderPainted(true);
       }
     }
 
-    public void mouseExited(MouseEvent e) {
-      Component component = e.getComponent();
+    @Override
+    public void mouseExited(final MouseEvent e) {
+      final Component component = e.getComponent();
       if (component instanceof AbstractButton) {
-        AbstractButton button = (AbstractButton) component;
+        final AbstractButton button = (AbstractButton) component;
         button.setBorderPainted(false);
       }
     }
@@ -137,14 +141,15 @@ public class ButtonTabComponent extends JPanel {
     setOpaque(false);
 
     // make JLabel read titles from JTabbedPane
-    JLabel label = new JLabel() {
+    final JLabel label = new JLabel() {
       /**
-       * 
+       *
        */
       private static final long serialVersionUID = 6998668634809766498L;
 
+      @Override
       public String getText() {
-        int i = pane.indexOfTabComponent(ButtonTabComponent.this);
+        final int i = pane.indexOfTabComponent(ButtonTabComponent.this);
         if (i != -1) {
           return pane.getTitleAt(i);
         }
@@ -162,7 +167,7 @@ public class ButtonTabComponent extends JPanel {
     setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
   }
 
-  public void addCloseButtonListener(ActionListener actionListener) {
+  public void addCloseButtonListener(final ActionListener actionListener) {
     button.addActionListener(actionListener);
   }
 }

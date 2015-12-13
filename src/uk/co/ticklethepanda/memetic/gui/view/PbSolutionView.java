@@ -18,37 +18,33 @@ import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PsuedoBooleanFunction;
 
 public class PbSolutionView extends SolutionView<BitString> {
 
-  public static void main(String[] args) {
-    PsuedoBooleanFunction function = new QuadraticPbFunctionGenerator(10000).generateFunction();
-
-    BitString solution = new BitStringFactory(function).generateSolution();
-
-    PbSolutionView solutionView = new PbSolutionView();
-
-    solutionView.setSolution(solution);
-
-    SwingUtilities.invokeLater(new Runnable() {
-
-      @Override
-      public void run() {
-        JFrame jframe = new JFrame();
-        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ;
-        jframe.getContentPane().add(solutionView);
-        jframe.pack();
-        jframe.setVisible(true);
-      }
-
-    });
-
-  }
-
   /**
    *
    */
   private static final long serialVersionUID = 1L;
 
   private static final int DEFAULT_SIZE = 500;
+
+  public static void main(final String[] args) {
+    final PsuedoBooleanFunction function =
+        new QuadraticPbFunctionGenerator(10000).generateFunction();
+
+    final BitString solution = new BitStringFactory(function).generateSolution();
+
+    final PbSolutionView solutionView = new PbSolutionView();
+
+    solutionView.setSolution(solution);
+
+    SwingUtilities.invokeLater(() -> {
+      final JFrame jframe = new JFrame();
+      jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      ;
+      jframe.getContentPane().add(solutionView);
+      jframe.pack();
+      jframe.setVisible(true);
+    });
+
+  }
 
   private BitString solution = null;
 

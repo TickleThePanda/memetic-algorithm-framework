@@ -19,8 +19,7 @@ public enum AlgorithmType {
   /**
    * Defines the nearest neighbour algorithm type.
    */
-  NEAREST_NEIGHBOUR("Nearest Neighbour",
-      new ProblemType[] { ProblemType.EUCLID_TSP });
+  NEAREST_NEIGHBOUR("Nearest Neighbour", new ProblemType[] { ProblemType.EUCLID_TSP });
 
   /**
    * Defines the problems that the type of algorithm can run on.
@@ -33,7 +32,7 @@ public enum AlgorithmType {
 
   /**
    * Creates an AlgorithmType with the name and available problems.
-   * 
+   *
    * @param name
    *          the name of the algorithm
    * @param availableProblems
@@ -46,7 +45,7 @@ public enum AlgorithmType {
 
   /**
    * Gets the problems that the type of algorithm can run on.
-   * 
+   *
    * @return the problems that the type of algorithm can run on
    */
   public ProblemType[] getAvailableProblems() {

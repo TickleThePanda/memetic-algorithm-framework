@@ -8,23 +8,21 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.co.ticklethepanda.memetic.problem.generators.tsp.EuclidianCitiesGenerator;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Cities;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.City;
 import uk.co.ticklethepanda.memetic.problem.solutions.tsp.City.Euclidian;
 
 public class FunctionFactoryTest {
+
+  private final static int MAX_CITY_DIST = 10000;
+
+  private static final int MAX_SIZE = 20;
+  private static final int MIN_SIZE = 10;
+  private static Random random;
 
   @BeforeClass
   public static void setUpBeforeClass() {
     random = new Random();
     ;
   }
-
-  private final static int MAX_CITY_DIST = 10000;
-  private static final int MAX_SIZE = 20;
-  private static final int MIN_SIZE = 10;
-
-  private static Random random;
 
   @Test
   public void generateProblem_seed0size10_functionCorrectlyGenerated() {
@@ -36,13 +34,11 @@ public class FunctionFactoryTest {
     final Random mirrorRandom = new Random(seed);
 
     for (int i = 0; i < cities.length; i++) {
-      cities[i] =
-          new City.Euclidian(mirrorRandom.nextInt(MAX_CITY_DIST),
-              mirrorRandom.nextInt(MAX_CITY_DIST));
+      cities[i] = new City.Euclidian(mirrorRandom.nextInt(MAX_CITY_DIST),
+          mirrorRandom.nextInt(MAX_CITY_DIST));
     }
 
-    final EuclidianCitiesGenerator functionGen =
-        new EuclidianCitiesGenerator(seed, size);
+    final EuclidianCitiesGenerator functionGen = new EuclidianCitiesGenerator(seed, size);
 
     final Cities<Euclidian> function = functionGen.generateFunction();
 
@@ -62,13 +58,11 @@ public class FunctionFactoryTest {
     final Random mirrorRandom = new Random(seed);
 
     for (int i = 0; i < cities.length; i++) {
-      cities[i] =
-          new City.Euclidian(mirrorRandom.nextInt(MAX_CITY_DIST),
-              mirrorRandom.nextInt(MAX_CITY_DIST));
+      cities[i] = new City.Euclidian(mirrorRandom.nextInt(MAX_CITY_DIST),
+          mirrorRandom.nextInt(MAX_CITY_DIST));
     }
 
-    final EuclidianCitiesGenerator functionGen =
-        new EuclidianCitiesGenerator(seed, size);
+    final EuclidianCitiesGenerator functionGen = new EuclidianCitiesGenerator(seed, size);
 
     final Cities<Euclidian> function = functionGen.generateFunction();
 
@@ -88,13 +82,11 @@ public class FunctionFactoryTest {
     final Random mirrorRandom = new Random(seed);
 
     for (int i = 0; i < cities.length; i++) {
-      cities[i] =
-          new City.Euclidian(mirrorRandom.nextInt(MAX_CITY_DIST),
-              mirrorRandom.nextInt(MAX_CITY_DIST));
+      cities[i] = new City.Euclidian(mirrorRandom.nextInt(MAX_CITY_DIST),
+          mirrorRandom.nextInt(MAX_CITY_DIST));
     }
 
-    final EuclidianCitiesGenerator functionGen =
-        new EuclidianCitiesGenerator(seed, size);
+    final EuclidianCitiesGenerator functionGen = new EuclidianCitiesGenerator(seed, size);
 
     final Cities<Euclidian> function = functionGen.generateFunction();
 

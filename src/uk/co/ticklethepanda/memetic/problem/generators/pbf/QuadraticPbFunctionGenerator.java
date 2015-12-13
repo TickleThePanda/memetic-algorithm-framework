@@ -31,7 +31,7 @@ public class QuadraticPbFunctionGenerator implements PbFunctionGenerator {
   /**
    * Creates a new QuadraticPbFuncFactory with the size and seeding it with
    * <code>System.nanoTime()</code>.
-   * 
+   *
    * @param size
    *          the size of the functions to create
    */
@@ -41,7 +41,7 @@ public class QuadraticPbFunctionGenerator implements PbFunctionGenerator {
 
   /**
    * Creates a new QuadraticPbFuncFactory with the size and with the seed.
-   * 
+   *
    * @param seed
    *          the seed to generate the functions with
    * @param size
@@ -65,24 +65,23 @@ public class QuadraticPbFunctionGenerator implements PbFunctionGenerator {
     Collections.shuffle(notUsedList);
 
     while (!notUsedList.isEmpty()) {
-      boolean linear = random.nextBoolean();
-      int coefficient = random.nextInt(COEFFICIENT_MAX * 2) - COEFFICIENT_MAX;
-      int usedBit = notUsedList.remove(0);
-      boolean booleanModifier = random.nextBoolean();
+      final boolean linear = random.nextBoolean();
+      final int coefficient = random.nextInt(COEFFICIENT_MAX * 2) - COEFFICIENT_MAX;
+      final int usedBit = notUsedList.remove(0);
+      final boolean booleanModifier = random.nextBoolean();
       if (linear) {
-        PsuedoBooleanIndeterminant[] booleanIndeterminant =
-            new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(usedBit,
-                booleanModifier) };
+        final PsuedoBooleanIndeterminant[] booleanIndeterminant = new PsuedoBooleanIndeterminant[] {
+            new PsuedoBooleanIndeterminant(usedBit, booleanModifier) };
         problemOperations.add(new PseudoBooleanTerm(coefficient, booleanIndeterminant));
       } else {
-        PsuedoBooleanIndeterminant operation1 =
+        final PsuedoBooleanIndeterminant operation1 =
             new PsuedoBooleanIndeterminant(usedBit, booleanModifier);
-        int usedBit2 = random.nextInt(size);
-        boolean booleanModifier2 = random.nextBoolean();
-        PsuedoBooleanIndeterminant operation2 =
+        final int usedBit2 = random.nextInt(size);
+        final boolean booleanModifier2 = random.nextBoolean();
+        final PsuedoBooleanIndeterminant operation2 =
             new PsuedoBooleanIndeterminant(usedBit2, booleanModifier2);
-        problemOperations.add(new PseudoBooleanTerm(coefficient, new PsuedoBooleanIndeterminant[] {
-            operation1, operation2 }));
+        problemOperations.add(new PseudoBooleanTerm(coefficient,
+            new PsuedoBooleanIndeterminant[] { operation1, operation2 }));
       }
     }
 
@@ -95,7 +94,7 @@ public class QuadraticPbFunctionGenerator implements PbFunctionGenerator {
 
   /**
    * Generates a list of unused bits.
-   * 
+   *
    * @return the list of unused bits.
    */
   private ArrayList<Integer> generateNotUsedList() {
@@ -105,8 +104,7 @@ public class QuadraticPbFunctionGenerator implements PbFunctionGenerator {
       notUsed[i] = i;
     }
 
-    final ArrayList<Integer> notUsedList =
-        new ArrayList<Integer>(Arrays.asList(notUsed));
+    final ArrayList<Integer> notUsedList = new ArrayList<Integer>(Arrays.asList(notUsed));
     return notUsedList;
   }
 

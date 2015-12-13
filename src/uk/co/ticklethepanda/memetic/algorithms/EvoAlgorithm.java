@@ -17,14 +17,14 @@ public interface EvoAlgorithm<E extends Solution<E>> extends Algorithm<E> {
 
   /**
    * Gets the settings that the algorithm is using.
-   * 
+   *
    * @return the settings that the algorithm is using
    */
   EvoAlgorithmSettings getSettings();
 
   /**
    * Gets the solution at the index within the population.
-   * 
+   *
    * @param index
    *          the index of the solution to get
    * @return the solution at the index
@@ -43,7 +43,7 @@ public interface EvoAlgorithm<E extends Solution<E>> extends Algorithm<E> {
     }
     return sum;
   }
-  
+
   /**
    * Gets the total fitness of the population.
    *
@@ -57,10 +57,9 @@ public interface EvoAlgorithm<E extends Solution<E>> extends Algorithm<E> {
     return sum;
   }
 
-
   /**
    * Gets the size of the population.
-   * 
+   *
    * @return the size of the population
    */
   int size();

@@ -11,14 +11,14 @@ import uk.co.ticklethepanda.memetic.problem.solutions.Solution;
 public class SimulationView<E extends Solution<E>> extends JPanel {
 
   /**
-   * 
+   *
    */
   private static final long serialVersionUID = 1L;
   /**
    * Create the panel.
    */
   private final SolutionView<E> sv;
-  private GraphView gv;
+  private final GraphView gv;
 
   long prevTime = 0;
 
@@ -28,7 +28,7 @@ public class SimulationView<E extends Solution<E>> extends JPanel {
 
     setLayout(new BorderLayout(0, 0));
 
-    JSplitPane splitPane = new JSplitPane();
+    final JSplitPane splitPane = new JSplitPane();
     splitPane.setResizeWeight(0.8);
     add(splitPane);
     splitPane.setLeftComponent(gv);
@@ -36,14 +36,13 @@ public class SimulationView<E extends Solution<E>> extends JPanel {
 
   }
 
-  public void setTitle(String title) {
+  public void setTitle(final String title) {
     gv.setTitle(title);
   }
 
   public void updateGenerationData(final GenerationData<E> gd) {
 
-    this.gv.addNextValues(gd.getTotalRunningTime(), gd.getBestSolution()
-        .getObjectiveValue());
+    this.gv.addNextValues(gd.getTotalRunningTime(), gd.getBestSolution().getObjectiveValue());
     if (System.currentTimeMillis() - prevTime > 100) {
       this.sv.setSolution(gd.getBestSolution());
       prevTime = System.currentTimeMillis();

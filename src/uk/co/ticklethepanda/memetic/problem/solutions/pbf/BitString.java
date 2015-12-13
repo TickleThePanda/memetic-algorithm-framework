@@ -45,20 +45,19 @@ public class BitString implements Comparable<BitString>, Solution<BitString> {
   /**
    * Creates a PbSolution with the bit string and the function, uses a random seed for doing
    * mutation.
-   * 
+   *
    * @param bitString
    *          the bit string that is the solution to the function
    * @param function
    *          the function to be used to evaluate the bit string
    */
-  public BitString(final boolean[] bitString,
-      final Problem<BitString> function) {
+  public BitString(final boolean[] bitString, final Problem<BitString> function) {
     this(System.nanoTime(), bitString, function);
   }
 
   /**
    * Creates a new Pseudo-Boolean function with the seed, the items and the function.
-   * 
+   *
    * @param seed
    *          the seed that the mutations will be generated with
    * @param items
@@ -66,11 +65,10 @@ public class BitString implements Comparable<BitString>, Solution<BitString> {
    * @param function
    *          the function used to evaluate the bit string
    */
-  public BitString(final long seed, final boolean[] items,
-      final Problem<BitString> function) {
+  public BitString(final long seed, final boolean[] items, final Problem<BitString> function) {
     random = new Random(seed);
     this.seed = seed;
-    this.bitString = Arrays.copyOf(items, items.length);
+    bitString = Arrays.copyOf(items, items.length);
     this.function = function;
   }
 
@@ -112,7 +110,7 @@ public class BitString implements Comparable<BitString>, Solution<BitString> {
 
   /**
    * Creates a new PbSolution and flips the specified bit.
-   * 
+   *
    * @param flipIndex
    *          the index to be flipped
    * @return the PbSolution with the flipped bit
@@ -132,22 +130,16 @@ public class BitString implements Comparable<BitString>, Solution<BitString> {
 
   /**
    * Gets the boolean at the specified index.
-   * 
+   *
    * @param index
    *          the boolean to gets
    * @return the boolean at the specified index
    */
   public boolean get(final int index) {
     if (index >= size()) {
-      throw new IndexOutOfBoundsException("Index " + index
-          + " is out of bounds!");
+      throw new IndexOutOfBoundsException("Index " + index + " is out of bounds!");
     }
     return bitString[index];
-  }
-
-  @Override
-  public int getObjectiveValue() {
-    return function.actualValue(this);
   }
 
   @Override
@@ -178,6 +170,11 @@ public class BitString implements Comparable<BitString>, Solution<BitString> {
   }
 
   @Override
+  public int getObjectiveValue() {
+    return function.actualValue(this);
+  }
+
+  @Override
   public int hashCode() {
     if (hashCached) {
       return hash;
@@ -198,8 +195,7 @@ public class BitString implements Comparable<BitString>, Solution<BitString> {
 
   @Override
   public String toString() {
-    return "PbSolution [items=" + Arrays.toString(bitString) + ", seed=" + seed
-        + "]";
+    return "PbSolution [items=" + Arrays.toString(bitString) + ", seed=" + seed + "]";
   }
 
 }

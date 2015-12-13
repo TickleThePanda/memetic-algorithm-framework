@@ -38,7 +38,7 @@ public class GuiController {
 
     /**
      * Creates a new SettingsViewPair with the settings and the view.
-     * 
+     *
      * @param settings
      *          the settings for the associated view
      * @param view
@@ -52,7 +52,7 @@ public class GuiController {
 
     /**
      * Gets the settings for the the view.
-     * 
+     *
      * @return the settings for the view
      */
     public SimulationPresenterBuilder getSettings() {
@@ -61,7 +61,7 @@ public class GuiController {
 
     /**
      * Gets the view for the settings.
-     * 
+     *
      * @return the view for the settings
      */
     public SimulationView<?> getView() {
@@ -85,20 +85,20 @@ public class GuiController {
 
     /**
      * Creates a new SimulationFilePair with the settings and the view.
-     * 
+     *
      * @param file
      *          the file for the associated view
      * @param view
      *          the view for the associated file
      */
-    public SimulationFilePair(File file, SimulationView<?> view) {
+    public SimulationFilePair(final File file, final SimulationView<?> view) {
       this.file = file;
       this.view = view;
     }
 
     /**
      * Gets the file for the view.
-     * 
+     *
      * @return the file for the view
      */
     public File getFile() {
@@ -107,7 +107,7 @@ public class GuiController {
 
     /**
      * Gets the view for the settings.
-     * 
+     *
      * @return the view for the settings
      */
     public SimulationView<?> getView() {
@@ -138,8 +138,7 @@ public class GuiController {
   /**
    * The list of associated simulations and files.
    */
-  List<SimulationFilePair> simulationFilePair =
-      new ArrayList<SimulationFilePair>();
+  List<SimulationFilePair> simulationFilePair = new ArrayList<SimulationFilePair>();
 
   /**
    * A constructor that creates a new GuiController in a new JFrame.
@@ -150,9 +149,9 @@ public class GuiController {
     guiView.addNewActionListener(e -> {
       settingsPresenter.setVisible(true);
     });
-    
+
     guiView.addTabClosedActionListener(e -> {
-      SimulationView<?> sv = guiView.getClosedView();
+      final SimulationView<?> sv = guiView.getClosedView();
       for (int i = 0; i < hs.size(); i++) {
         if (hs.get(i).getView() == sv) {
           hs.get(i).getModel().setRunning(false);
@@ -162,45 +161,42 @@ public class GuiController {
       guiView.closeTab(sv);
     });
 
-    settingsPresenter
-        .addNewSimulationActionListener(e -> {
-          SimulationPresenterBuilder ss =
-              settingsPresenter.getSimulationSettings();
-          this.openNewSettings(ss);
-        });
+    settingsPresenter.addNewSimulationActionListener(e -> {
+      final SimulationPresenterBuilder ss = settingsPresenter.getSimulationSettings();
+      this.openNewSettings(ss);
+    });
   }
 
   /**
    * Adds a simulation to the GUIView.
-   * 
+   *
    * @param simulationPresenter
    *          the simulation to add
    */
-  private void addSimulationViewToGui(SimulationPresenter<?> simulationPresenter) {
+  private void addSimulationViewToGui(final SimulationPresenter<?> simulationPresenter) {
     try {
       SwingUtilities.invokeAndWait(() -> {
         settingsPresenter.setVisible(false);
         guiView.addNewSimulationView(simulationPresenter.getView());
         jframe.pack();
       });
-    } catch (Exception e1) {
+    } catch (final Exception e1) {
       e1.printStackTrace();
     }
   }
 
   /**
    * Adds a simulation to the lists required.
-   * 
+   *
    * @param simulationSettings
    *          the settings required
    * @param simulationPresenter
    *          the simulation required
    */
-  private void addViewToLists(SimulationPresenterBuilder simulationSettings,
-      SimulationPresenter<?> simulationPresenter) {
+  private void addViewToLists(final SimulationPresenterBuilder simulationSettings,
+      final SimulationPresenter<?> simulationPresenter) {
     hs.add(simulationPresenter);
-    settingsViewPair.add(new SettingsViewPair(simulationSettings,
-        simulationPresenter.getView()));
+    settingsViewPair.add(new SettingsViewPair(simulationSettings, simulationPresenter.getView()));
   }
 
   /**
@@ -210,8 +206,8 @@ public class GuiController {
     settingsPresenter = new SettingsPresenter();
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    } catch (ClassNotFoundException | InstantiationException
-        | IllegalAccessException | UnsupportedLookAndFeelException e1) {
+    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+        | UnsupportedLookAndFeelException e1) {
       e1.printStackTrace();
     }
 
@@ -230,11 +226,11 @@ public class GuiController {
 
   /**
    * Gets the settings for the current tab from the list.
-   * 
+   *
    * @return the settings for the current tab
    */
   private SimulationPresenterBuilder getCurrentTabsSettings() {
-    SimulationView<?> simulationView = guiView.getCurrentlySelectedTab();
+    final SimulationView<?> simulationView = guiView.getCurrentlySelectedTab();
 
     SimulationPresenterBuilder settings = null;
 
@@ -248,13 +244,13 @@ public class GuiController {
 
   /**
    * Gets the last save location used for the current tab.
-   * 
+   *
    * @return the last save location used for the current tab
    */
   private File getFromLastSaveLocation() {
     File file = null;
-    SimulationView<?> simulationView = guiView.getCurrentlySelectedTab();
-    for (SimulationFilePair pair : simulationFilePair) {
+    final SimulationView<?> simulationView = guiView.getCurrentlySelectedTab();
+    for (final SimulationFilePair pair : simulationFilePair) {
       if (pair.getView() == simulationView) {
         file = pair.getFile();
       }
@@ -262,24 +258,26 @@ public class GuiController {
     return file;
   }
 
+  public JPanel getPanel() {
+    return guiView;
+  }
+
   /**
    * Opens settings window with the settings provided.
-   * 
+   *
    * @param settings
    *          the settings that the window will be opened with
    */
-  private void openNewSettings(SimulationPresenterBuilder settings) {
-    Executors.newSingleThreadExecutor().execute(
-        () -> {
-          SimulationPresenter<?> simulationPresenter =
-              settings.createSimulationPresenter();
-          addSimulationViewToGui(simulationPresenter);
+  private void openNewSettings(final SimulationPresenterBuilder settings) {
+    Executors.newSingleThreadExecutor().execute(() -> {
+      final SimulationPresenter<?> simulationPresenter = settings.createSimulationPresenter();
+      addSimulationViewToGui(simulationPresenter);
 
-          if (simulationPresenter != null) {
-            simulationPresenter.getModel().execute();
-            addViewToLists(settings, simulationPresenter);
-          }
-        });
+      if (simulationPresenter != null) {
+        simulationPresenter.getModel().execute();
+        addViewToLists(settings, simulationPresenter);
+      }
+    });
   }
 
   /**
@@ -287,10 +285,6 @@ public class GuiController {
    */
   public void start() {
     SwingUtilities.getRoot(guiView).setVisible(true);
-  }
-
-  public JPanel getPanel() {
-    return guiView;
   }
 
 }

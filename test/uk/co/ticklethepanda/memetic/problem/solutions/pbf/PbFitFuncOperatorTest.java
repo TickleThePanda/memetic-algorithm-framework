@@ -7,25 +7,19 @@ import java.util.Random;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.BitString;
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PseudoBooleanTerm;
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PsuedoBooleanFunction;
-import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PsuedoBooleanIndeterminant;
-
 public class PbFitFuncOperatorTest {
+
+  private static Random random;
 
   @BeforeClass
   public static void setUpBeforeClass() {
     random = new Random();
   }
 
-  private static Random random;
-
   @Test
   public void TestDoOperation_BaseCase_GetCorrectValue() {
-    final PseudoBooleanTerm pseudoBooleanTerm =
-        new PseudoBooleanTerm(1, new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(0,
-            false) });
+    final PseudoBooleanTerm pseudoBooleanTerm = new PseudoBooleanTerm(1,
+        new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(0, false) });
     assertEquals(1, pseudoBooleanTerm.calculateValue(new BitString(new boolean[] { true },
         new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }))));
   }
@@ -34,30 +28,27 @@ public class PbFitFuncOperatorTest {
   public void TestDoOperation_FlippedBools_CorrectValue() {
     final PseudoBooleanTerm pseudoBooleanTerm =
         new PseudoBooleanTerm(1, new PsuedoBooleanIndeterminant[] {
-            new PsuedoBooleanIndeterminant(0, false),
-            new PsuedoBooleanIndeterminant(1, false) });
-    assertEquals(1, pseudoBooleanTerm.calculateValue(new BitString(new boolean[] { true,
-        true }, new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }))));
+            new PsuedoBooleanIndeterminant(0, false), new PsuedoBooleanIndeterminant(1, false) });
+    assertEquals(1, pseudoBooleanTerm.calculateValue(new BitString(new boolean[] { true, true },
+        new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }))));
   }
 
   @Test
   public void TestDoOperation_MultileBooleanOperationsTF_CorrectValue() {
     final PseudoBooleanTerm pseudoBooleanTerm =
         new PseudoBooleanTerm(1, new PsuedoBooleanIndeterminant[] {
-            new PsuedoBooleanIndeterminant(0, false),
-            new PsuedoBooleanIndeterminant(1, false) });
-    assertEquals(0, pseudoBooleanTerm.calculateValue(new BitString(new boolean[] { true,
-        false }, new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }))));
+            new PsuedoBooleanIndeterminant(0, false), new PsuedoBooleanIndeterminant(1, false) });
+    assertEquals(0, pseudoBooleanTerm.calculateValue(new BitString(new boolean[] { true, false },
+        new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }))));
   }
 
   @Test
   public void TestDoOperation_MultileBooleanOperationsTT_CorrectValue() {
     final PseudoBooleanTerm pseudoBooleanTerm =
         new PseudoBooleanTerm(1, new PsuedoBooleanIndeterminant[] {
-            new PsuedoBooleanIndeterminant(0, false),
-            new PsuedoBooleanIndeterminant(1, false) });
-    assertEquals(1, pseudoBooleanTerm.calculateValue(new BitString(new boolean[] { true,
-        true }, new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }))));
+            new PsuedoBooleanIndeterminant(0, false), new PsuedoBooleanIndeterminant(1, false) });
+    assertEquals(1, pseudoBooleanTerm.calculateValue(new BitString(new boolean[] { true, true },
+        new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }))));
   }
 
   @Test
@@ -70,14 +61,11 @@ public class PbFitFuncOperatorTest {
 
     int expectedAnswer = 0;
 
-    final PseudoBooleanTerm pseudoBooleanTerm =
-        new PseudoBooleanTerm(randomModifier,
-            new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(
-                randomLocation, false) });
+    final PseudoBooleanTerm pseudoBooleanTerm = new PseudoBooleanTerm(randomModifier,
+        new PsuedoBooleanIndeterminant[] { new PsuedoBooleanIndeterminant(randomLocation, false) });
 
-    final BitString pbs =
-        new BitString(PbTests.createRandomBoolArr(solutionSize),
-            new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }));
+    final BitString pbs = new BitString(PbTestHelper.createRandomBoolArr(solutionSize),
+        new PsuedoBooleanFunction(new PseudoBooleanTerm[] { pseudoBooleanTerm }));
 
     if (pbs.get(randomLocation)) {
       expectedAnswer = randomModifier;

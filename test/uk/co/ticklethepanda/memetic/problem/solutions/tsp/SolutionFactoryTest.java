@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import org.junit.Before;
@@ -11,16 +12,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.co.ticklethepanda.memetic.problem.generators.tsp.EuclidianCitiesGenerator;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Cities;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Tour;
 import uk.co.ticklethepanda.memetic.problem.solutions.tsp.City.Euclidian;
 
 public class SolutionFactoryTest {
-
-  @BeforeClass
-  public static void setUpBeforeClass() throws Exception {
-    random = new Random();
-  }
 
   private static final int MAX_RANDOM_SIZE = 100;
 
@@ -28,13 +22,18 @@ public class SolutionFactoryTest {
 
   private static Random random;
 
+  @BeforeClass
+  public static void setUpBeforeClass() throws Exception {
+    random = new Random();
+  }
+
   private int rSize;
   private Cities<Euclidian> rSizeFunction;
   private Tour.Generator rSizeSF;
   private Cities<Euclidian> simpleFunction;
   private Random simpleMirrorRandom;
-  private int[] simpleParent1;
-  private int[] simpleParent2;
+  private Integer[] simpleParent1;
+  private Integer[] simpleParent2;
   private long simpleSeed;
   private Tour.Generator simpleSF;
 
@@ -51,16 +50,13 @@ public class SolutionFactoryTest {
     final Tour parent1 = rSizeSF.generateSolution();
     final Tour parent2 = rSizeSF.generateSolution();
 
-    assertEquals(rSizeFunction, rSizeSF.crossover(parent1, parent2)
-        .getFitnessFunction());
+    assertEquals(rSizeFunction, rSizeSF.crossover(parent1, parent2).getFitnessFunction());
   }
 
   @Test
   public void Crossover_SizeRandom$SeedRandom$SolutionRandom_EveryCityPresent() {
 
-    final Tour solution =
-        rSizeSF.crossover(rSizeSF.generateSolution(),
-            rSizeSF.generateSolution());
+    final Tour solution = rSizeSF.crossover(rSizeSF.generateSolution(), rSizeSF.generateSolution());
 
     final boolean[] present = new boolean[rSize];
 
@@ -77,9 +73,7 @@ public class SolutionFactoryTest {
   @Test
   public void Crossover_SizeRandom$SeedRandom$SolutionRandom_NoDuplicateCities() {
 
-    final Tour solution =
-        rSizeSF.crossover(rSizeSF.generateSolution(),
-            rSizeSF.generateSolution());
+    final Tour solution = rSizeSF.crossover(rSizeSF.generateSolution(), rSizeSF.generateSolution());
 
     final int[] present = new int[rSize];
 
@@ -96,13 +90,12 @@ public class SolutionFactoryTest {
   @Test
   public void CrossoverSolution_Size10Seed0SimpleSolution_CorrectOrder() {
 
-    final int[] child = new int[simpleSize];
+    final Integer[] child = new Integer[simpleSize];
 
     // crossover length
     final int crossoverPoint1 = simpleMirrorRandom.nextInt(simpleSize - 2);
     final int crossoverPoint2 =
-        crossoverPoint1
-            + simpleMirrorRandom.nextInt(simpleSize - crossoverPoint1);
+        crossoverPoint1 + simpleMirrorRandom.nextInt(simpleSize - crossoverPoint1);
 
     // find point at which parent2 has the same value as in parent1[0]
     int startingLoc = 0;
@@ -126,8 +119,7 @@ public class SolutionFactoryTest {
     int iChild = diff;
     int iParent = 0;
     while (iChild < child.length) {
-      final int realParentIndex =
-          (startingLoc + crossoverPoint2 + iParent + 1) % simpleSize;
+      final int realParentIndex = (startingLoc + crossoverPoint2 + iParent + 1) % simpleSize;
       final int city = simpleParent2[realParentIndex];
 
       if (visited.contains(city) == false) {
@@ -139,8 +131,7 @@ public class SolutionFactoryTest {
 
     final Tour tspChild = new Tour(child, simpleFunction);
 
-    assertEquals(tspChild,
-        simpleSF.crossover(simpleTSPParent1, simpleTSPParent2));
+    assertEquals(tspChild, simpleSF.crossover(simpleTSPParent1, simpleTSPParent2));
   }
 
   @Test
@@ -158,20 +149,20 @@ public class SolutionFactoryTest {
 
     final Tour solution = sf.generateSolution();
 
-    final int[] cities = new int[solution.size()];
+    final Integer[] cities = new Integer[solution.size()];
     for (int i = 0; i < solution.size(); i++) {
       cities[i] = i;
     }
 
     for (int i = 0; i < solution.size(); i++) {
-      int swapLoc = mirrorRandom.nextInt(solution.size());
-      int temp = cities[swapLoc];
+      final int swapLoc = mirrorRandom.nextInt(solution.size());
+      final int temp = cities[swapLoc];
       cities[swapLoc] = cities[i];
       cities[i] = temp;
     }
-    
+
     for (int i = 0; i < solution.size(); i++) {
-      assertEquals(cities[i], solution.get(i));
+      assertEquals(cities[i].intValue(), solution.get(i));
     }
   }
 
@@ -185,20 +176,20 @@ public class SolutionFactoryTest {
 
     final Tour solution = sf.generateSolution();
 
-    final int[] cities = new int[solution.size()];
+    final Integer[] cities = new Integer[solution.size()];
     for (int i = 0; i < solution.size(); i++) {
       cities[i] = i;
     }
 
     for (int i = 0; i < solution.size(); i++) {
-      int swapLoc = mirrorRandom.nextInt(solution.size());
-      int temp = cities[swapLoc];
+      final int swapLoc = mirrorRandom.nextInt(solution.size());
+      final int temp = cities[swapLoc];
       cities[swapLoc] = cities[i];
       cities[i] = temp;
     }
 
     for (int i = 0; i < solution.size(); i++) {
-      assertEquals(cities[i], solution.get(i));
+      assertEquals(cities[i].intValue(), solution.get(i));
     }
   }
 
@@ -226,7 +217,7 @@ public class SolutionFactoryTest {
     final Tour solution = size10SF.generateSolution();
 
     final int[] present = new int[size10];
-
+    
     // set cities to true if present because boolean default is false
     for (int i = 0; i < solution.size(); i++) {
       final int city = solution.get(i);
@@ -262,8 +253,7 @@ public class SolutionFactoryTest {
     final Tour solution = rSizeSF.generateSolution();
 
     final int[] present = new int[rSize];
-
-    // set cities to true if present because boolean default is false
+    
     for (int i = 0; i < solution.size(); i++) {
       final int city = solution.get(i);
       present[city]++;
@@ -285,11 +275,10 @@ public class SolutionFactoryTest {
     simpleMirrorRandom = new Random(simpleSeed);
     simpleSize = 10;
 
-    simpleFunction =
-        new EuclidianCitiesGenerator(simpleSize).generateFunction();
+    simpleFunction = new EuclidianCitiesGenerator(simpleSize).generateFunction();
 
-    simpleParent1 = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    simpleParent2 = new int[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+    simpleParent1 = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    simpleParent2 = new Integer[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 
     simpleTSPParent1 = new Tour(simpleParent1, simpleFunction);
     simpleTSPParent2 = new Tour(simpleParent2, simpleFunction);

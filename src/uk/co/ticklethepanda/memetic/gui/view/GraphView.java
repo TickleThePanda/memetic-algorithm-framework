@@ -2,15 +2,12 @@ package uk.co.ticklethepanda.memetic.gui.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Shape;
-import java.awt.geom.Line2D;
 
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -66,9 +63,7 @@ public class GraphView extends JPanel {
 
     dataset.addSeries(data.getMaxFitnessSeries());
 
-    jfc =
-        ChartFactory.createXYLineChart("", "Total Running Time",
-            "Objective Value", dataset);
+    jfc = ChartFactory.createXYLineChart("", "Total Running Time", "Objective Value", dataset);
 
     final ChartPanel chartPanel = new ChartPanel(jfc);
 
@@ -79,7 +74,7 @@ public class GraphView extends JPanel {
     data.reset();
   }
 
-  public void setTitle(String title) {
+  public void setTitle(final String title) {
     jfc.setTitle(title);
 
   }

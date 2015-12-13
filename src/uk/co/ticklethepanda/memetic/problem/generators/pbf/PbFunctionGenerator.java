@@ -8,8 +8,7 @@ import uk.co.ticklethepanda.memetic.problem.solutions.pbf.PsuedoBooleanFunction;
  * Defines a Pseudo-Boolean function factory.
  *
  */
-public interface PbFunctionGenerator extends
-    ProblemGenerator<BitString, PsuedoBooleanFunction> {
+public interface PbFunctionGenerator extends ProblemGenerator<BitString, PsuedoBooleanFunction> {
 
   @Override
   PsuedoBooleanFunction generateFunction();

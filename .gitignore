@@ -1,4 +1,4 @@
-#no binaries
+#binaries
 /bin
 /jar
 *.jar
@@ -7,6 +7,7 @@
 #no output
 /output
 /junit
+/target
 
 #no eclipse files
 /.externalToolBuilders

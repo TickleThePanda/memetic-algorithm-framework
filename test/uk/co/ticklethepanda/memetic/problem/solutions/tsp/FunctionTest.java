@@ -2,13 +2,11 @@ package uk.co.ticklethepanda.memetic.problem.solutions.tsp;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Cities;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.City;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Tour;
 
 public class FunctionTest {
 
@@ -26,17 +24,15 @@ public class FunctionTest {
 
     final City.Euclidian[] cities = new City.Euclidian[] { city1, city2, city3, city4 };
 
-    final Cities<City.Euclidian> function = new Cities<City.Euclidian>(cities);
+    final Cities<City.Euclidian> function = new Cities<City.Euclidian>(Arrays.asList(cities));
 
-    final Tour testSolution =
-        new Tour(SolutionTest.generateTSPSolution(4), function);
+    final Tour testSolution = new Tour(SolutionTest.generateTSPSolution(4), function);
 
     int sum = 0;
 
     for (int i = 0; i < testSolution.size(); i++) {
       final City.Euclidian cityA = cities[testSolution.get(i)];
-      final City.Euclidian cityB =
-          cities[testSolution.get((i + 1) % testSolution.size())];
+      final City.Euclidian cityB = cities[testSolution.get((i + 1) % testSolution.size())];
       sum += cityA.distance(cityB);
     }
 
@@ -51,11 +47,10 @@ public class FunctionTest {
     final City.Euclidian city3 = new City.Euclidian(100, 100);
     final City.Euclidian city4 = new City.Euclidian(100, 0);
 
-    final Cities<City.Euclidian> function =
-        new Cities<City.Euclidian>(new City.Euclidian[] { city1, city2, city3, city4 });
+    final Cities<City.Euclidian> function = new Cities<City.Euclidian>(
+        Arrays.asList(new City.Euclidian[] { city1, city2, city3, city4 }));
 
-    assertEquals(400,
-        function.actualValue(new Tour(new int[] { 0, 1, 2, 3 }, function)));
+    assertEquals(400, function.actualValue(new Tour(new Integer[] { 0, 1, 2, 3 }, function)));
   }
 
   @Test
@@ -67,8 +62,8 @@ public class FunctionTest {
 
     final City.Euclidian[] cities = new City.Euclidian[] { city1, city2, city3, city4 };
 
-    final Cities<City.Euclidian> function = new Cities<City.Euclidian>(cities);
-    final Cities<City.Euclidian> function2 = new Cities<City.Euclidian>(cities);
+    final Cities<City.Euclidian> function = new Cities<City.Euclidian>(Arrays.asList(cities));
+    final Cities<City.Euclidian> function2 = new Cities<City.Euclidian>(Arrays.asList(cities));
 
     assertEquals(function, function2);
   }
@@ -88,8 +83,8 @@ public class FunctionTest {
     final City.Euclidian[] cities1 = new City.Euclidian[] { city11, city12, city13, city14 };
     final City.Euclidian[] cities2 = new City.Euclidian[] { city21, city22, city23, city24 };
 
-    final Cities<City.Euclidian> function1 = new Cities<City.Euclidian>(cities1);
-    final Cities<City.Euclidian> function2 = new Cities<City.Euclidian>(cities2);
+    final Cities<City.Euclidian> function1 = new Cities<City.Euclidian>(Arrays.asList(cities1));
+    final Cities<City.Euclidian> function2 = new Cities<City.Euclidian>(Arrays.asList(cities2));
 
     assertEquals(function1, function2);
   }
@@ -107,17 +102,15 @@ public class FunctionTest {
 
     final City.Euclidian[] cities = new City.Euclidian[] { city1, city2, city3, city4 };
 
-    final Cities<City.Euclidian> function = new Cities<City.Euclidian>(cities);
+    final Cities<City.Euclidian> function = new Cities<City.Euclidian>(Arrays.asList(cities));
 
-    final Tour testSolution =
-        new Tour(SolutionTest.generateTSPSolution(4), function);
+    final Tour testSolution = new Tour(SolutionTest.generateTSPSolution(4), function);
 
     int sum = 0;
 
     for (int i = 0; i < testSolution.size(); i++) {
       final City.Euclidian cityA = cities[testSolution.get(i)];
-      final City.Euclidian cityB =
-          cities[testSolution.get((i + 1) % testSolution.size())];
+      final City.Euclidian cityB = cities[testSolution.get((i + 1) % testSolution.size())];
       sum += cityA.distance(cityB);
     }
 
@@ -135,11 +128,11 @@ public class FunctionTest {
     final int maxDist = (int) Math.sqrt(100 * 100 + 100 * 100);
     final int totalMax = maxDist * 4;
 
-    final Cities<City.Euclidian> function =
-        new Cities<City.Euclidian>(new City.Euclidian[] { city1, city2, city3, city4 });
+    final Cities<City.Euclidian> function = new Cities<City.Euclidian>(
+        Arrays.asList(new City.Euclidian[] { city1, city2, city3, city4 }));
 
-    assertEquals(totalMax - 400, function.evaluateFitness(new Tour(
-        new int[] { 0, 1, 2, 3 }, function)));
+    assertEquals(totalMax - 400,
+        function.evaluateFitness(new Tour(new Integer[] { 0, 1, 2, 3 }, function)));
   }
 
   @Test
@@ -152,7 +145,7 @@ public class FunctionTest {
 
     final City.Euclidian[] cities = new City.Euclidian[] { city1, city2, city3, city4 };
 
-    final Cities<City.Euclidian> function = new Cities<City.Euclidian>(cities);
+    final Cities<City.Euclidian> function = new Cities<City.Euclidian>(Arrays.asList(cities));
 
     for (int i = 0; i < cities.length; i++) {
       assertEquals(cities[i], function.getCity(i));

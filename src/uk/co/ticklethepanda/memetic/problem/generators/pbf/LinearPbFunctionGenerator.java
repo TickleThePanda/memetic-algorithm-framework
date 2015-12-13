@@ -29,7 +29,7 @@ public class LinearPbFunctionGenerator implements PbFunctionGenerator {
 
   /**
    * Creates a new LinearPbFunctionFactory with the number of bits and a random seed.
-   * 
+   *
    * @param size
    *          the size of the function the factory will generate in number of bits. This must be > 1
    */
@@ -39,7 +39,7 @@ public class LinearPbFunctionGenerator implements PbFunctionGenerator {
 
   /**
    * Creates a new LinearPbFunctionFactory with the number of bits and the seed.
-   * 
+   *
    * @param seed
    *          the seed used to initialise the function generator
    * @param size
@@ -49,7 +49,7 @@ public class LinearPbFunctionGenerator implements PbFunctionGenerator {
     if (size < 1) {
       throw new IllegalArgumentException();
     }
-    this.random = new Random(seed);
+    random = new Random(seed);
     this.size = size;
   }
 
@@ -69,8 +69,7 @@ public class LinearPbFunctionGenerator implements PbFunctionGenerator {
 
   @Override
   public String toString() {
-    return "LinearPbFunctionFactory [random=" + random + ", seed=" + ", size="
-        + size + "]";
+    return "LinearPbFunctionFactory [random=" + random + ", seed=" + ", size=" + size + "]";
   }
 
 }

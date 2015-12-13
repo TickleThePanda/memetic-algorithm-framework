@@ -4,7 +4,7 @@ import uk.co.ticklethepanda.memetic.problem.solutions.Solution;
 
 /**
  * A listener that listens for the end of a generation in an evolutionary algorithm.
- * 
+ *
  * @param <E>
  *          the type of solution to be listened to
  */

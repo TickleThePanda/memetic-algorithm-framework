@@ -12,120 +12,80 @@ import org.junit.Test;
 
 import uk.co.ticklethepanda.memetic.problem.generators.tsp.EuclidianCitiesGenerator;
 import uk.co.ticklethepanda.memetic.problem.solutions.LocalImprovement;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Cities;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.City;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.Tour;
-import uk.co.ticklethepanda.memetic.problem.solutions.tsp.TwoOptLocalImprovement;
 
 public class TwoOptTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		random = new Random();
+  private static Random random;
 
-	}
+  @BeforeClass
+  public static void setUpBeforeClass() throws Exception {
+    random = new Random();
 
-	private static Random random;
+  }
 
-	@Test
-	public void LocalTwoOpt_RandomInputRandomSizeRandomSwap_CorrectOutput() {
-		final int randomSize = random.nextInt(50) + 10;
-		final Cities<City.Euclidian> tf = new EuclidianCitiesGenerator(randomSize)
-				.generateFunction();
+  @Test
+  public void LocImprov_ExtendsLocalImprovement_AssumptionCorrect() {
+    final Class<?> locImprov = LocalImprovement.class;
+    assertTrue(Arrays.asList(TwoOptLocalImprovement.class.getInterfaces()).contains(locImprov));
+  }
 
-		final int[] initialOrder = SolutionTest
-				.generateTSPSolution(randomSize);
+  @Before
+  public void setUp() throws Exception {
 
-		final Tour solution = new Tour(initialOrder, tf);
+  }
 
-		final TwoOptLocalImprovement locImprov = new TwoOptLocalImprovement();
-		Tour bestSolution = solution;
+  @Test
+  public void SingleTwoOpt_RandomInputRandomSizeRandomSwap_CorrectOutput() {
+    final int randomSize = random.nextInt(50) + 10;
+    final Cities<City.Euclidian> tf = new EuclidianCitiesGenerator(randomSize).generateFunction();
 
-		for (int i = 0; i < initialOrder.length; i++) {
-			for (int j = i + 1; j < initialOrder.length; j++) {
+    final Integer[] initialOrder = SolutionTest.generateTSPSolution(randomSize);
 
-				final Tour improved = locImprov.doLazySingleSwap(solution,
-						i, j);
-				if (improved.getFitness() > bestSolution.getFitness()) {
-					bestSolution = improved;
-				}
+    final Tour solution = new Tour(initialOrder, tf);
 
-			}
-		}
+    final TwoOptLocalImprovement locImprov = new TwoOptLocalImprovement();
 
-		assertEquals(bestSolution,
-				locImprov.getNeighbourhoodImprovedSolution(solution));
-	}
+    final int firstIndex = random.nextInt(randomSize - 1);
+    final int secondIndex = random.nextInt(randomSize - 1 - firstIndex) + firstIndex + 1;
 
-	@Test
-	public void LocImprov_ExtendsLocalImprovement_AssumptionCorrect() {
-		final Class<?> locImprov = LocalImprovement.class;
-		assertTrue(Arrays.asList(TwoOptLocalImprovement.class.getInterfaces()).contains(
-				locImprov));
-	}
+    final Integer[] newOrder = new Integer[randomSize];
+    for (int i = 0; i < newOrder.length; i++) {
+      if (i >= firstIndex && i <= secondIndex) {
+        final int reverseIndex = secondIndex + firstIndex - i;
+        newOrder[i] = initialOrder[reverseIndex];
+      } else {
+        newOrder[i] = initialOrder[i];
+      }
+    }
 
-	@Before
-	public void setUp() throws Exception {
+    final Tour improved = locImprov.doSingleSwap(solution, firstIndex, secondIndex);
 
-	}
+    for (int i = 0; i < improved.size(); i++) {
+      assertEquals(newOrder[i].intValue(), improved.get(i));
+    }
+  }
 
-	@Test
-	public void SingleTwoOpt_RandomInputRandomSizeRandomSwap_CorrectOutput() {
-		final int randomSize = random.nextInt(50) + 10;
-		final Cities<City.Euclidian> tf = new EuclidianCitiesGenerator(randomSize)
-				.generateFunction();
+  @Test
+  public void SingleTwoOpt_SimpleInput_CorrectOutput() {
+    final Cities<City.Euclidian> tf = new Cities<City.Euclidian>(
+        Arrays.asList(new City.Euclidian[] { new City.Euclidian(0, 0), new City.Euclidian(0, 100),
+            new City.Euclidian(100, 100), new City.Euclidian(100, 0) }));
+    final TwoOptLocalImprovement locImprov = new TwoOptLocalImprovement();
 
-		final int[] initialOrder = SolutionTest
-				.generateTSPSolution(randomSize);
+    final Integer[] initialOrder = new Integer[] { 0, 2, 1, 3 };
 
-		final Tour solution = new Tour(initialOrder, tf);
+    final Tour solution = new Tour(initialOrder, tf);
 
-		final TwoOptLocalImprovement locImprov = new TwoOptLocalImprovement();
+    final Integer[] newOrder = new Integer[] { 0, 1, 2, 3 };
 
-		final int firstIndex = random.nextInt(randomSize - 1);
-		final int secondIndex = random.nextInt(randomSize - 1 - firstIndex)
-				+ firstIndex + 1;
+    final int firstIndex = 1;
+    final int secondIndex = 2;
 
-		final int[] newOrder = new int[randomSize];
-		for (int i = 0; i < newOrder.length; i++) {
-			if (i >= firstIndex && i <= secondIndex) {
-				final int reverseIndex = secondIndex + firstIndex - i;
-				newOrder[i] = initialOrder[reverseIndex];
-			} else {
-				newOrder[i] = initialOrder[i];
-			}
-		}
+    final Tour improved = locImprov.doLazySingleSwap(solution, firstIndex, secondIndex);
 
-		final Tour improved = locImprov.doSingleSwap(solution,
-				firstIndex, secondIndex);
+    for (int i = 0; i < improved.size(); i++) {
+      assertEquals(newOrder[i].intValue(), improved.get(i));
+    }
+  }
 
-		for (int i = 0; i < improved.size(); i++) {
-			assertEquals(newOrder[i], improved.get(i));
-		}
-	}
-
-	@Test
-	public void SingleTwoOpt_SimpleInput_CorrectOutput() {
-		final Cities<City.Euclidian> tf = new Cities<City.Euclidian>(new City.Euclidian[] {
-				new City.Euclidian(0, 0), new City.Euclidian(0, 100),
-				new City.Euclidian(100, 100), new City.Euclidian(100, 0) });
-		final TwoOptLocalImprovement locImprov = new TwoOptLocalImprovement();
-
-		final int[] initialOrder = new int[] { 0, 2, 1, 3 };
-
-		final Tour solution = new Tour(initialOrder, tf);
-
-		final int[] newOrder = new int[] { 0, 1, 2, 3 };
-
-		final int firstIndex = 1;
-		final int secondIndex = 2;
-
-		final Tour improved = locImprov.doLazySingleSwap(solution,
-				firstIndex, secondIndex);
-		
-		for (int i = 0; i < improved.size(); i++) {
-			assertEquals(newOrder[i], improved.get(i));
-		}
-	}
-	
 }
