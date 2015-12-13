@@ -6,7 +6,6 @@ A memetic (and genetic) algorithm framework.
    - Default configuration optimised for general problems.
    - Default TSP optimiser
      - [TODO]
-     - A reader for [TSPLIB](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/)
    - Pseudo-Boolean Functions
  - Framework for [implementing solutions to additional problems](implementing_solutions_to_additional_problems)
 
