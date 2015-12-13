@@ -3,9 +3,8 @@ A memetic (and genetic) algorithm framework.
 
 ## Features
  - Simple setup
-   - Default configuration optimised for general problems.
-   - Default TSP optimiser
-     - [TODO]
+   - Default general optimal configuration
+   - Load EUC_2D from TSPLIB file
    - Pseudo-Boolean Functions
  - Framework for [implementing solutions to additional problems](implementing_solutions_to_additional_problems)
 
