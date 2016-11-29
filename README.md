@@ -1,4 +1,4 @@
-# memetic-algorithm-framework
+# memetic-algorithm-framework [![Build Status](https://travis-ci.org/TickleThePanda/memetic-algorithm-framework.svg?branch=master)](https://travis-ci.org/TickleThePanda/memetic-algorithm-framework)
 A memetic (and genetic) algorithm framework.
 
 ## Features
