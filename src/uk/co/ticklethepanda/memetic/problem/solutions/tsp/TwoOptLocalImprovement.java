@@ -33,29 +33,6 @@ public class TwoOptLocalImprovement implements LocalImprovement<Tour> {
   private static final int DEFAULT_TIME_LIMIT = 100;
 
   /**
-   * The cache used for getting previous completed improvements.
-   */
-  LoadingCache<Tour, Tour> improvementCache = CacheBuilder.newBuilder()
-      .maximumSize(DEFAULT_CACHE_SIZE).expireAfterWrite(DEFAULT_TIME_LIMIT, TimeUnit.MILLISECONDS)
-      .concurrencyLevel(DEFAULT_CONCURRENCY_LEVEL).build(new CacheLoader<Tour, Tour>() {
-
-        @Override
-        public Tour load(final Tour solution) throws Exception {
-          switch (type) {
-          case COMPLETE:
-            return getCompleteImprovedSolution(solution);
-          case NEIGHBOURHOOD:
-            return getNeighbourhoodImprovedSolution(solution);
-          case SINGLE_ORDERED:
-            return getSingleOrderedImprovedSolution(solution);
-          case SINGLE_RANDOM:
-            return getSingleRandomImprovedSolution(solution);
-          default:
-            return solution;
-          }
-        }
-      });
-  /**
    * Random used for choosing the starting index of the improvement.
    */
   private final Random random = new Random();
@@ -160,12 +137,18 @@ public class TwoOptLocalImprovement implements LocalImprovement<Tour> {
 
   @Override
   public Tour getImprovedSolution(final Tour solution) {
-    try {
-      return improvementCache.get(solution);
-    } catch (final ExecutionException e) {
-      e.printStackTrace();
+    switch (type) {
+      case COMPLETE:
+        return getCompleteImprovedSolution(solution);
+      case NEIGHBOURHOOD:
+        return getNeighbourhoodImprovedSolution(solution);
+      case SINGLE_ORDERED:
+        return getSingleOrderedImprovedSolution(solution);
+      case SINGLE_RANDOM:
+        return getSingleRandomImprovedSolution(solution);
+      default:
+        return solution;
     }
-    return solution;
   }
 
   @Override
