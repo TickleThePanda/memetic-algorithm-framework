@@ -3,3 +3,9 @@ jdk:
   - oraclejdk8
 after_success:
   - mvn clean cobertura:cobertura coveralls:report
+
+sudo: false
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
