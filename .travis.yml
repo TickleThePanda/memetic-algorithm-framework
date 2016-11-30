@@ -1,11 +1,19 @@
 language: java
 jdk:
-- oraclejdk8
+  - oraclejdk8
 after_success:
-- mvn clean cobertura:cobertura coveralls:report
+  - mvn clean cobertura:cobertura coveralls:report
 notifications:
   pushover:
     api_key:
       secure: DrF1Xq73xYv9abRTe4DA3H48jad1ML+O4aeQBLhTrmKSfUqCgPUbfPbF6X8XhDP6vun44Odr7VQFCGTz+BcA1r3wN0K2pPgYd+v3mq8zV9+QSVQPdLKjU9BPu+kEo6tjUOtqaXt3M+/dod0bp+AWuIE8njbBwFqRsflWebonGr8cBeG+cAg8zjYiM0I8pVpo5zUPq6aq7IvlUxXTl5z0bvZA4MTkmXRctwdNSuweFkA5hCg/wtF6pLgNFRGKnrRrtDn0Ra1hU/BX4djXSN84KS8fYJPKiEuiG/xPOhDpEKpgrw6U2ufvKGjTsfRZKEBTZkUzl8fyDGEZ/0GB3XXwML+j3kfdPgAyxlPATmmlhdLCC0HQuvwQg+GwXZu/tzHtZX/myGCPQmuBtQexfESxmAqq37uSSvL3JiYkl+FKicSlBNCgXm5P2GoEe0EebZrUJw5PCSKzTEMv6AjE5SoYxmiivfNPgEKSGJWt9g8r+BXzhgdd2dpZKsB/KRMRUdDWIMHoQC+HqbQNA4kHsGOVwytX1bo2iITrd/EUikc/8cPB1XZjZBIoMa4CJXGmmDmB1lhcDFUyPYjdGDU/3+PYBLKl7ztSw/kSgb/My3C1wGWtry9VFaf3FXx4lCaO0hIvl3uwq+9zBSfFCe8xpHHMd7DW4+CLWo56Cmq7ogyBNlM=
     users:
       secure: IUsyc3fbx5qUeAZsMCi28ROCRF86XffUDTMegMyKLZq0y3Tvip4K3TD2oDJalnJAXGtlDicXIOr6DK/j/PpsjtXyvt0MRY3P25H/RmNqxPJNflPZW07V0EvHYxVRMBxpALnBhqqVsmDiM34DqkLOG8elmeIBDsekTxTo9k1VIjwm9Eg1Ymt4REZZevytlN8TfjpkZOy6LY8Ppvvkua1vYHoI0QbPZZ6JM2FkHJbG/VKWveEAbPYBCTiVTU2FZvnNsA+d87WJAtKs5832G71+S/grDXSDPSo220btshi1+D1jlIgz7Rm+h5z2RPJus9lFuKwAUluHdvc6O6dQJNccpwUClaPjnMF9DVTIHmYIc4pQ22mmPvx2ae26LsATIyaVsgXkmbDikARNJAgvsJaDCkxvIZZdHFx7U8C+FeDRTBohBeVXtQRoBV6kVbYbkNqemVBF9azGBAN5XHnA6D7YjqxFqmRjpvHuq1N+2y4c+0806qYXYQedmMd7ib+3Cglmu6rtVnAvPDhDheCRZ6uGTanC7nen2jPsx9UXkU4Qpg08e1fqUhRIXewk9IKhjL8ks7MqTbQnXGRDBcp+bblLSfXvTg5kYk0sO+/uB1ooDjU9sFDFYHKbkyrGPwuuI39MuzGp++dc8mAPdCd+YujB8vlZegJOvjYlAjSgzziWiqg=
+
+
+sudo: false
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
