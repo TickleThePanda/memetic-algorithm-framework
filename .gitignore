@@ -1,1 +1,20 @@
+#binaries
+/bin
+/jar
+*.jar
+*.zip
+
+#no output
+/output
+/junit
 target
+
+#no eclipse files
+/.externalToolBuilders
+/.settings
+
+#no tsplib files
+/tsplib
+
+#WTF SVN
+/.svn
