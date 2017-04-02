@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+ 
+  <groupId>uk.co.ticklethepanda</groupId>
+  <artifactId>sudoku-genetic-algorithm</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+    </dependency>
+  </dependencies>
+  
+  <name>Genetic Algorithm - Sudoku</name>
+  <description>A genetic algorithm for solving sudoku puzzles. Spoiler alert: that doesn't actually work.</description>
+  <url>https://github.com/TickleThePanda/memetic-algorithm-framework</url>
+  <inceptionYear>2014</inceptionYear>
+  <licenses>
+    <license>
+      <name>GNU General Public License Version 3 (GPLv3)</name>
+      <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>ticklethepanda</id>
+      <name>Thomas 'Panda' Attwood</name>
+      <email>thomas.pg.attwood@gmail.com</email>
+      <url>http://www.example.com/jdoe</url>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>Europe/London</timezone>
+    </developer>
+  </developers>
+</project>
